@@ -1,12 +1,11 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>odrive_ros</name>
-  <version>0.8.1</version>
-  <description>ODrive motor controller driver for ROS</description>
+  <name>boris_base</name>
+  <version>1.0.0</version>
+  <description>ODrive motor controller driver for Boris base</description>
   <license>Modified BSD</license>
 
-  <maintainer email="josh.marshall@tecevo.com">Josh Marshall, Tecevo</maintainer>
-  <url type="website">https://github.com/neomanic/odrive_ros</url>
+  <maintainer email="itsmomito@gmail.com">Moshe Rienhart</maintainer>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>rospy</build_depend>

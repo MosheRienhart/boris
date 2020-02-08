@@ -210,7 +210,7 @@ class ODriveNode(object):
             self.joint_state_msg = jsm
             #jsm.name.resize(2)
             #jsm.position.resize(2)
-            jsm.name = ['joint_left_wheel','joint_right_wheel']
+            jsm.name = ['left_wheel_joint','right_wheel_joint']
             jsm.position = [0.0, 0.0]            
 
         

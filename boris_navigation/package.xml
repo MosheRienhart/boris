@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package>
+  <name>boris_navigation</name>
+  <version>1.0.0</version>
+  <description>Configure BORIS for Navigation</description>
+  <maintainer email="itsmomito@gmail.com">Moshe Rienhart</maintainer>
+  <license>BSD-3</license>
+  <url type="website">https://01.org/</url>
+  <author email="itsmomito@gmail.com">Moshe Rienhart</author>
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>boris_description</run_depend>
+  <run_depend>boris_mapping</run_depend>
+  <run_depend>move_base</run_depend>
+</package>

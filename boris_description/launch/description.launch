@@ -1,0 +1,25 @@
+<!-- Basic launcher for BORIS robot description.
+     Posts model to parameter server, also sets up joint and robot
+     state publishers for transforms. 
+-->
+<launch>
+  <arg
+    name="model" />
+  <arg
+    name="gui"
+    default="False" />
+  <param
+    name="robot_description"
+    textfile="$(find boris_description)/urdf/boris_description.urdf" />
+  <param
+    name="use_gui"
+    value="$(arg gui)" />
+  <node
+    name="joint_state_publisher"
+    pkg="joint_state_publisher"
+    type="joint_state_publisher" />
+  <node
+    name="robot_state_publisher"
+    pkg="robot_state_publisher"
+    type="robot_state_publisher" />
+</launch>

@@ -1,0 +1,4 @@
+<launch>
+  <include file="$(find boris_mapping)/launch/gmapping.launch"/>
+  <include file="$(find boris_mapping)/launch/amcl.launch"/>
+</launch>

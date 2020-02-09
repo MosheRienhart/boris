@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <name>boris_master</name>
+  <version>1.0.0</version>
+  <description>Launch files and scripts for BORIS</description>
+  <maintainer email="itsmomito@gmail.com">Moshe Rienhart</maintainer>
+  <license>BSD-3</license>
+  <author email="itsmomito@gmail.com">Moshe Rienhart</author>
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>boris_description</run_depend>
+  <run_depend>boris_base</run_depend>
+  <run_depend>boris_description</run_depend>
+  <run_depend>boris_scan</run_depend>
+  <run_depend>boris_mapping</run_depend>
+  <run_depend>boris_navigation</run_depend>
+  <run_depend>teleop_twist_keyboard</run_depend>
+</package>

@@ -1,9 +1,6 @@
-<!-- Initialize Boris: Phase 0 -->
+<!-- Initialize BORIS: Phase 0 -->
 <launch>
-  <!-- Start local motor control bridge -->
-  <node pkg="boris_base"
-        type="boris_base" 
-        name="boris_base"
-        output="screen"
-  /> 
+    <!-- Start motor control of base (left and right wheels)-->
+  <include file="$(find boris_base)/launch/base.launch"/>
+
 </launch>

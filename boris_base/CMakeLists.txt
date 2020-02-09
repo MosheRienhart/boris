@@ -162,7 +162,7 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 install(PROGRAMS
-  nodes/odrive_node
+  nodes/boris_base_node
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

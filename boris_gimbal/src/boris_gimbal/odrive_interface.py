@@ -26,9 +26,9 @@ class ODriveFailure(Exception):
 
 class ODriveInterfaceAPI(object):
     driver = None
-    encoder_cpr = 90
-    right_axis = None
-    left_axis = None
+    encoder_cpr = 2048
+    tilt_axis = None
+    yaw_axis = None
     connected = False
     _preroll_started = False
     _preroll_completed = False
@@ -40,8 +40,8 @@ class ODriveInterfaceAPI(object):
         if active_odrive: # pass in the odrv0 object from odrivetool shell to use it directly.
             self.driver = active_odrive
             self.axes = (self.driver.axis0, self.driver.axis1)
-            self.right_axis = self.driver.axis0 
-            self.left_axis  = self.driver.axis1
+            self.tilt_axis = self.driver.axis0 
+            self.yaw_axis  = self.driver.axis1
             self.logger.info("Loaded pre-existing ODrive interface. Check index search status.")
             self.encoder_cpr = self.driver.axis0.encoder.config.cpr
             self.connected = True
@@ -55,7 +55,7 @@ class ODriveInterfaceAPI(object):
         # provided so simulator can update position
         pass
                     
-    def connect(self, port=None, right_axis=0, timeout=30):
+    def connect(self, port=None, tilt_axis=0, timeout=30):
         if self.driver:
             self.logger.info("Already connected. Disconnecting and reconnecting.")
         try:
@@ -66,11 +66,11 @@ class ODriveInterfaceAPI(object):
             return False
                         
         # save some parameters for easy access
-        self.right_axis = self.driver.axis0 if right_axis == 0 else self.driver.axis1
-        self.left_axis  = self.driver.axis1 if right_axis == 0 else self.driver.axis0
+        self.tilt_axis = self.driver.axis0 if tilt_axis == 0 else self.driver.axis1
+        self.yaw_axis  = self.driver.axis1 if tilt_axis == 0 else self.driver.axis0
         
         # check for no errors
-        for axis in [self.right_axis, self.left_axis]:
+        for axis in [self.tilt_axis, self.yaw_axis]:
             if axis.error != 0:
                 error_str = "Had error on startup, rebooting. Axis error 0x%x, motor error 0x%x, encoder error 0x%x. Rebooting." % (axis.error, axis.motor.error, axis.encoder.error)
                 self.logger.error(error_str)
@@ -89,8 +89,8 @@ class ODriveInterfaceAPI(object):
         
     def disconnect(self):
         self.connected = False
-        self.right_axis = None
-        self.left_axis = None
+        self.tilt_axis = None
+        self.yaw_axis = None
         
         #self.engaged = False
         
@@ -174,7 +174,7 @@ class ODriveInterfaceAPI(object):
             self._preroll_started = False
             for i, axis in enumerate(self.axes):
                 if axis.error != 0:
-                    self.logger.error("Failed preroll with left_axis error 0x%x, motor error 0x%x" % (axis.error, axis.motor.error))
+                    self.logger.error("Failed preroll with yaw_axis error 0x%x, motor error 0x%x" % (axis.error, axis.motor.error))
                     return False
             self._preroll_completed = True
             self.logger.info("Index search preroll complete.")
@@ -239,9 +239,9 @@ class ODriveInterfaceAPI(object):
 
         #self.logger.debug("Setting drive mode.")
         for axis in self.axes:
-            axis.controller.vel_setpoint = 0
+            axis.controller.pos_setpoint = 0
             axis.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
-            axis.controller.config.control_mode = CTRL_MODE_VELOCITY_CONTROL
+            axis.controller.config.control_mode = CTRL_MODE_POSITION_CONTROL
         
         #self.engaged = True
         return True
@@ -257,19 +257,19 @@ class ODriveInterfaceAPI(object):
         #self.engaged = False
         return True
     
-    def drive(self, left_motor_val, right_motor_val):
+    def drive(self, yaw_motor_val, tilt_motor_val):
         if not self.driver:
             self.logger.error("Not connected.")
             return
         #try:
-        self.left_axis.controller.vel_setpoint = left_motor_val
-        self.right_axis.controller.vel_setpoint = -right_motor_val
+        self.yaw_axis.controller.pos_setpoint = yaw_motor_val
+        self.tilt_axis.controller.pos_setpoint = -tilt_motor_val
         #except (fibre.protocol.ChannelBrokenException, AttributeError) as e:
         #    raise ODriveFailure(str(e))
         
     def feed_watchdog(self):
-        self.left_axis.watchdog_feed()
-        self.right_axis.watchdog_feed()
+        self.yaw_axis.watchdog_feed()
+        self.tilt_axis.watchdog_feed()
         
     def get_errors(self, clear=True):
         # TODO: add error parsing, see: https://github.com/madcowswe/ODrive/blob/master/tools/odrive/utils.py#L34
@@ -280,8 +280,8 @@ class ODriveInterfaceAPI(object):
         
         if axis_error:
             error_string = "Errors(hex): L: a%x m%x e%x c%x, R: a%x m%x e%x c%x" % (
-                self.left_axis.error,  self.left_axis.motor.error,  self.left_axis.encoder.error,  self.left_axis.controller.error,
-                self.right_axis.error, self.right_axis.motor.error, self.right_axis.encoder.error, self.right_axis.controller.error,
+                self.yaw_axis.error,  self.yaw_axis.motor.error,  self.yaw_axis.encoder.error,  self.yaw_axis.controller.error,
+                self.tilt_axis.error, self.tilt_axis.motor.error, self.tilt_axis.encoder.error, self.tilt_axis.controller.error,
             )
         
         if clear:
@@ -294,17 +294,17 @@ class ODriveInterfaceAPI(object):
         if axis_error:
             return error_string
             
-    def left_vel_estimate(self):  return self.left_axis.encoder.vel_estimate   if self.left_axis  else 0 # units: encoder counts/s
-    def right_vel_estimate(self): return self.right_axis.encoder.vel_estimate  if self.right_axis else 0 # neg is forward for right
-    def left_pos(self):           return self.left_axis.encoder.pos_cpr        if self.left_axis  else 0  # units: encoder counts
-    def right_pos(self):          return self.right_axis.encoder.pos_cpr       if self.right_axis else 0   # sign!
+    def yaw_vel_estimate(self):  return self.yaw_axis.encoder.vel_estimate   if self.yaw_axis  else 0 # units: encoder counts/s
+    def tilt_vel_estimate(self): return self.tilt_axis.encoder.vel_estimate  if self.tilt_axis else 0 # neg is forward for tilt
+    def yaw_pos(self):           return self.yaw_axis.encoder.pos_cpr        if self.yaw_axis  else 0  # units: encoder counts
+    def tilt_pos(self):          return self.tilt_axis.encoder.pos_cpr       if self.tilt_axis else 0   # sign!
     
-    # TODO check these match the right motors, but it doesn't matter for now
-    def left_temperature(self):   return self.left_axis.motor.get_inverter_temp()  if self.left_axis  else 0.
-    def right_temperature(self):  return self.right_axis.motor.get_inverter_temp() if self.right_axis else 0.
+    # TODO check these match the tilt motors, but it doesn't matter for now
+    def yaw_temperature(self):   return self.yaw_axis.motor.get_inverter_temp()  if self.yaw_axis  else 0.
+    def tilt_temperature(self):  return self.tilt_axis.motor.get_inverter_temp() if self.tilt_axis else 0.
     
-    def left_current(self):       return self.left_axis.motor.current_control.Ibus  if self.left_axis and self.left_axis.current_state > 1 else 0.
-    def right_current(self):      return self.right_axis.motor.current_control.Ibus if self.right_axis and self.right_axis.current_state > 1 else 0.
+    def yaw_current(self):       return self.yaw_axis.motor.current_control.Ibus  if self.yaw_axis and self.yaw_axis.current_state > 1 else 0.
+    def tilt_current(self):      return self.tilt_axis.motor.current_control.Ibus if self.tilt_axis and self.tilt_axis.current_state > 1 else 0.
     
     # from axis.hpp: https://github.com/madcowswe/ODrive/blob/767a2762f9b294b687d761029ef39e742bdf4539/Firmware/MotorControl/axis.hpp#L26
     MOTOR_STATES = [
@@ -321,8 +321,8 @@ class ODriveInterfaceAPI(object):
         "ENCODER_DIR_FIND",
         ]
         
-    def left_state(self):       return self.MOTOR_STATES[self.left_axis.current_state] if self.left_axis else "NOT_CONNECTED"
-    def right_state(self):      return self.MOTOR_STATES[self.right_axis.current_state] if self.right_axis else "NOT_CONNECTED"
+    def yaw_state(self):       return self.MOTOR_STATES[self.yaw_axis.current_state] if self.yaw_axis else "NOT_CONNECTED"
+    def tilt_state(self):      return self.MOTOR_STATES[self.tilt_axis.current_state] if self.tilt_axis else "NOT_CONNECTED"
     
-    def bus_voltage(self):      return self.driver.vbus_voltage if self.left_axis else 0.
+    def bus_voltage(self):      return self.driver.vbus_voltage if self.yaw_axis else 0.
     

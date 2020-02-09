@@ -1,6 +1,9 @@
 <!-- Initialize BORIS: Phase 0 -->
 <launch>
-    <!-- Start motor control of base (left and right wheels)-->
+    <!-- Start motor control of base (velocity control of left and right wheels)-->
   <include file="$(find boris_base)/launch/base.launch"/>
+
+     <!-- Start motor control of realsense camera gimbal (position control of yaw and tilt gimbal motors)-->
+  <include file="$(find boris_gimbal)/launch/gimbal.launch"/>
 
 </launch>

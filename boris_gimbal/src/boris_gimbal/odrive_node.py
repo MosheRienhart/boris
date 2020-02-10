@@ -143,7 +143,7 @@ class ODriveNode(object):
             self.raw_odom_publisher_vel_tilt     = rospy.Publisher('tilt/raw_odom/velocity', Int32, queue_size=2) if self.publish_raw_odom else None
             
         if self.publish_joint_angles:
-            self.joint_state_publisher = rospy.Publisher('/odrive/joint_states', JointState, queue_size=2)
+            self.joint_state_publisher = rospy.Publisher('joint_states', JointState, queue_size=2)
             
             jsm = JointState()
             self.joint_state_msg = jsm

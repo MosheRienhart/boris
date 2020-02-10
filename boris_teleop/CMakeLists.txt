@@ -10,6 +10,8 @@ catkin_package(
   DEPENDS
 )
 
+catkin_python_setup()
+
 ###########
 ## Build ##
 ###########

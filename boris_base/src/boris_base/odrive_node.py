@@ -81,7 +81,7 @@ class ODriveNode(object):
     # When enabled, output simulated odometry and joint angles (TODO: do joint angles anyway from ?)
     
     def __init__(self):
-        self.sim_mode             = get_param('simulation_mode', True)
+        self.sim_mode             = get_param('simulation_mode', False)
         self.publish_joint_angles = get_param('publish_joint_angles', True) # if self.sim_mode else False
         self.publish_temperatures = get_param('publish_temperatures', True)
         

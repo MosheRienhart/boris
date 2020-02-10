@@ -101,8 +101,8 @@ if __name__=="__main__":
     settings = termios.tcgetattr(sys.stdin)
     
     rospy.init_node('boris_teleop')
-    pub = rospy.Publisher('~cmd_vel', Twist, queue_size=5)
-    pub2 = rospy.Publisher('~cmd_gimbal_angle', Vector3, queue_size=5)
+    pub = rospy.Publisher('cmd_vel', Twist, queue_size=5)
+    pub2 = rospy.Publisher('cmd_gimbal_angle', Vector3, queue_size=5)
     yaw = 0
     tilt = 0
     x = 0

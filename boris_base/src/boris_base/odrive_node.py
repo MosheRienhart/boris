@@ -79,10 +79,9 @@ class ODriveNode(object):
     publish_joint_angles = True
     # Simulation mode
     # When enabled, output simulated odometry and joint angles (TODO: do joint angles anyway from ?)
-    sim_mode = False
     
     def __init__(self):
-        self.sim_mode             = get_param('simulation_mode', False)
+        self.sim_mode             = get_param('simulation_mode', True)
         self.publish_joint_angles = get_param('publish_joint_angles', True) # if self.sim_mode else False
         self.publish_temperatures = get_param('publish_temperatures', True)
         
@@ -423,9 +422,13 @@ class ODriveNode(object):
         if self.driver:
             return (False, "Already connected.")
         
-        ODriveClass = ODriveInterfaceAPI if not self.sim_mode else ODriveInterfaceSimulator
-        
-        self.driver = ODriveInterfaceAPI(logger=ROSLogger())
+	if self.sim_mode:
+		ODriveClass = ODriveInterfaceSimulator
+        	self.driver = ODriveInterfaceSimulator(logger=ROSLogger())
+	else:
+        	ODriveClass = ODriveInterfaceAPI
+		self.driver = ODriveInterfaceAPI(logger=ROSLogger())
+
         rospy.loginfo("Connecting to ODrive...")
         if not self.driver.connect(right_axis=self.axis_for_right):
             self.driver = None

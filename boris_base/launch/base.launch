@@ -3,6 +3,7 @@
     <arg name="connect_on_startup"   default="true"/>
     <arg name="calibrate_on_startup" default="false"/>
     <arg name="engage_on_startup"    default="true"/>
+    <arg name="simulation_mode"	     default="false"/>
 
     <arg name="publish_odom"        default="true"/>
     <arg name="publish_odom_tf"     default="true"/>
@@ -21,5 +22,6 @@
         
         <param name="publish_odom"         value="$(arg publish_odom)"/>
         <param name="publish_odom_tf"      value="$(arg publish_odom_tf)"/>
+        <param name="simulation_mode"      value="$(arg simulation_mode)"/>
     </node>
 </launch>

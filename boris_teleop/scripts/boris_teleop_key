@@ -133,9 +133,9 @@ if __name__=="__main__":
                     print(msg)
                 status = (status + 1) % 15
             elif key in tiltBindings.keys():
-                tilt = tilt + gimbalBindings[key]
+                tilt = tilt + tiltBindings[key]
             elif key in yawBindings.keys():
-                yaw = yaw + gimbalBindings[key]
+                yaw = yaw + yawBindings[key]
             elif key == ' ' or key == 'k' :
                 x = 0
                 th = 0

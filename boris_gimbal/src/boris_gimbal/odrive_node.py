@@ -431,7 +431,7 @@ class ODriveNode(object):
     
     # Helpers and callbacks
     
-    def convert(self, yaw_radians, tilt_radians)):
+    def convert(self, yaw_radians, tilt_radians):
 
         # convert message radian values into CPR values applicable to Odrive
 

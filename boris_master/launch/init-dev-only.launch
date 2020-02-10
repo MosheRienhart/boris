@@ -4,10 +4,10 @@
   <include file="$(find boris_base)/launch/base_simulator.launch"/>
   
   <!-- Start motor control of realsense camera gimbal (position control of yaw and tilt gimbal motors)-->
-  <include file="$(find boris_gimbal)/launch/gimbal_simulator.launch"/>
+  <!--include file="$(find boris_gimbal)/launch/gimbal_simulator.launch"/-->
   
   <!-- Load robot description and tf server -->
-  <include file="$(find boris_description)/launch/display.launch"/>
+  <include file="$(find boris_description)/launch/display2.launch"/>
 
   <!-- Load keyboard control -->
   <include file="$(find boris_teleop)/launch/keyboard_teleop.launch"/>

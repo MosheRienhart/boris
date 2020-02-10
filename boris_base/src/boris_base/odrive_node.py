@@ -203,7 +203,7 @@ class ODriveNode(object):
             self.tf_msg.transform.rotation.z = 1.0
             
         if self.publish_joint_angles:
-            self.joint_state_publisher = rospy.Publisher('/odrive/joint_states', JointState, queue_size=2)
+            self.joint_state_publisher = rospy.Publisher('joint_states', JointState, queue_size=2)
             
             jsm = JointState()
             self.joint_state_msg = jsm

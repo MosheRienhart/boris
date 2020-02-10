@@ -11,4 +11,5 @@
   <build_depend>geometry_msgs</build_depend>
   <build_depend>rospy</build_depend>
   <run_depend>geometry_msgs</run_depend>
+  <run_depend>rospy</run_depend>
 </package>

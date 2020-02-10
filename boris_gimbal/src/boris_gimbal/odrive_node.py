@@ -10,7 +10,7 @@ import tf2_ros
 
 import std_msgs.msg
 from std_msgs.msg import Float64, Int32
-from geometry_msgs.msg import Twist, TransformStamped
+from geometry_msgs.msg import Twist, TransformStamped, Vector3
 from sensor_msgs.msg import JointState
 import std_srvs.srv
 

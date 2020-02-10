@@ -149,7 +149,7 @@ class ODriveNode(object):
             self.joint_state_msg = jsm
             #jsm.name.resize(2)
             #jsm.position.resize(2)
-            jsm.name = ['camera_yaw_ioint','camera_tilt_ioint']
+            jsm.name = ['camera_yaw_joint','camera_tilt_joint']
             jsm.position = [0.0, 0.0]            
 
         

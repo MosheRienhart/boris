@@ -13,7 +13,7 @@ ch.setLevel(logging.DEBUG)
 default_logger.addHandler(ch)
 
 class ODriveInterfaceSimulator(object):
-    encoder_cpr = 4096
+    encoder_cpr = 90
     connected = False
     engaged = False
 

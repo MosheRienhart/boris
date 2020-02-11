@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package>
+  <name>_scan</name>
+  <version>1.0.0</version>
+  <description>Convert RealSense data into LaserScan data for Simple Wheeled Autonomous Robot (SAWR)</description>
+  <maintainer email="itsmomito@gmail.com">Moshe Rienhart</maintainer>
+  <license>BSD-3</license>
+  <author email="itsmomito@gmail.com">Moshe Rienhart</author>
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>realsense2_camera</run_depend>
+  <run_depend>depthimage_to_laserscan</run_depend>
+</package>

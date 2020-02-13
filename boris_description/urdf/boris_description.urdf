@@ -283,8 +283,8 @@
     name="camera_joint"
     type="fixed">
     <origin
-      xyz="0.05255 -0.006823 -0.01495"
-      rpy="-3.1416 0 -3.1416" />
+      xyz="0 0 0"
+      rpy="0 1.57079632679 1.57079632679" />
     <parent
       link="camera_tilt_link" />
     <child

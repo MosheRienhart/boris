@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>_scan</name>
+  <name>boris_scan</name>
   <version>1.0.0</version>
   <description>Convert RealSense data into LaserScan data for Simple Wheeled Autonomous Robot (SAWR)</description>
   <maintainer email="itsmomito@gmail.com">Moshe Rienhart</maintainer>

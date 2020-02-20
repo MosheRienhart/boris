@@ -56,10 +56,10 @@ class ODriveNode(object):
     
     # Robot params for radians -> cpr conversion
     #AS5048 -> 16384 Steps/rev (SPI/I2C interface)
-    #AS5047P -> 4096 Steps/rev = 1024PPR (ABI Interface)
-    #AS5047D -> 2048 Steps/rev = 512PPR (ABI Interface)
+    #AS5047P -> 4000 Steps/rev = 1000PPR (ABI Interface)
+    #AS5047D -> 2000 Steps/rev = 500PPR (ABI Interface)
     axis_for_tilt = 1
-    encoder_cpr = 2048
+    encoder_cpr = 2000
     
     # Startup parameters
     connect_on_startup = True
@@ -447,6 +447,18 @@ class ODriveNode(object):
 
   
         yaw_angle_val, tilt_angle_val = self.convert(msg.z, msg.x)
+        
+        #Insure motors never exceed one rotation
+        if (yaw_angle_val > 2000):
+            yaw_angle_val = 2000
+        elif (yaw_angle_val < -2000):
+            yaw_angle_val = -2000
+        if (tilt_angle_val > 2000):
+            tilt_angle_val = 2000
+        elif(tilt_angle_val < -2000):
+            tilt_angle_val = -2000
+
+
 
         try:
             drive_command = ('drive', (yaw_angle_val, tilt_angle_val))

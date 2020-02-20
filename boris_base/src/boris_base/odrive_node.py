@@ -45,14 +45,6 @@ class ROSLogger(object):
     # idx_search_speed = 10.0 (float)
     # pre_calibrated = False (bool)
 
-#m_s_to_rpm = 60.0/tyre_circumference
-#m_s_to_erpm = 10 * m_s_to_rpm 
-
-# 4096 counts / rev, so 4096 == 1 rev/s
-
-
-# 1 m/s = 3.6 km/hr
-
 def get_param(name, default):
     val = rospy.get_param(name, default)
     rospy.loginfo('  %s: %s', name, str(val))
@@ -69,7 +61,7 @@ class ODriveNode(object):
     encoder_counts_per_rev = None
     m_s_to_value = 1.0
     axis_for_right = 1
-    encoder_cpr = 90
+    encoder_cpr = 2000
     
     # Startup parameters
     connect_on_startup = True

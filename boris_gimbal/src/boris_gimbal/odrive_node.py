@@ -458,8 +458,6 @@ class ODriveNode(object):
         elif(tilt_angle_val < -2000):
             tilt_angle_val = -2000
 
-
-
         try:
             drive_command = ('drive', (yaw_angle_val, tilt_angle_val))
             self.command_queue.put_nowait(drive_command)

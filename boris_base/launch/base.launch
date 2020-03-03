@@ -11,7 +11,7 @@
     <arg name="output"   default="screen"/>
     <arg name="respawn"   default="false"/>
     
-    <node pkg="boris_base" type="boris_base_node" name="odrive"
+    <node pkg="boris_base" type="boris_base_node" name="odrive_base"
             output="$(arg output)" respawn="$(arg respawn)">
         <param name="wheel_track" value="0.671"/>
         <param name="tyre_circumference" value="0.165"/>

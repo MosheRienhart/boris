@@ -26,7 +26,7 @@ class ODriveFailure(Exception):
 
 class ODriveInterfaceAPI(object):
     driver = None
-    encoder_cpr = 2048
+    encoder_cpr = 2000
     tilt_axis = None
     yaw_axis = None
     connected = False
@@ -36,7 +36,6 @@ class ODriveInterfaceAPI(object):
     
     def __init__(self, logger=None, active_odrive=None):
         self.logger = logger if logger else default_logger
-        
         if active_odrive: # pass in the odrv0 object from odrivetool shell to use it directly.
             self.driver = active_odrive
             self.axes = (self.driver.axis0, self.driver.axis1)
@@ -59,7 +58,7 @@ class ODriveInterfaceAPI(object):
         if self.driver:
             self.logger.info("Already connected. Disconnecting and reconnecting.")
         try:
-            self.driver = odrive.find_any(timeout=timeout, logger=self.logger)
+            self.driver = odrive.find_any(serial_number="207C35A3524B", timeout=timeout, logger=self.logger)
             self.axes = (self.driver.axis0, self.driver.axis1)
         except:
             self.logger.error("No ODrive found. Is device powered?")

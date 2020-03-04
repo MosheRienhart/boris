@@ -87,7 +87,6 @@ class ODriveNode(object):
         self.publish_current = get_param('~publish_current', True)
         self.publish_raw_odom =get_param('~publish_raw_odom', True)
         
-        self.publish_tf      = get_param('~publish_odom_tf', False)
         self.odom_calc_hz    = get_param('~odom_calc_hz', 10)
 
         rospy.on_shutdown(self.terminate)
@@ -435,8 +434,8 @@ class ODriveNode(object):
 
         # convert message radian values into CPR values applicable to Odrive
 
-        yaw_angle_val  = int((yaw_radians * 180/math.pi) * self.encoder_cpr)
-        tilt_angle_val = int((tilt_radians * 180/math.pi) * self.encoder_cpr)
+        yaw_angle_val  = int((yaw_radians/(2*math.pi)) * self.encoder_cpr)
+        tilt_angle_val = int((tilt_radians/(2*math.pi)) * self.encoder_cpr)
     
         return yaw_angle_val, tilt_angle_val
 
@@ -445,19 +444,21 @@ class ODriveNode(object):
         #rospy.loginfo("Yaw Axis: [%f]"%(msg.linear.z))
         #rospy.loginfo("Tilt Axis: [%f]"%(msg.angular.x))
 
-  
         yaw_angle_val, tilt_angle_val = self.convert(msg.z, msg.x)
         
-        #Insure motors never exceed one rotation
-        if (yaw_angle_val > 2000):
-            yaw_angle_val = 2000
-        elif (yaw_angle_val < -2000):
-            yaw_angle_val = -2000
-        if (tilt_angle_val > 2000):
-            tilt_angle_val = 2000
-        elif(tilt_angle_val < -2000):
-            tilt_angle_val = -2000
-
+        #Insure motors never exceed half rotation
+        if (yaw_angle_val > 1000):
+            yaw_angle_val = 1000
+            rospy.logwarn("Yaw Axis received cmd > 1000 of [%f]"%(msg.linear.z))
+        elif (yaw_angle_val < -1000):
+            yaw_angle_val = -1000
+            rospy.logwarn("Yaw Axis received cmd < -1000 of [%f]"%(msg.linear.z))
+        if (tilt_angle_val > 1000):
+            tilt_angle_val = 1000
+            rospy.logwarn("Tilt Axis received cmd > 1000 of [%f]"%(msg.linear.z))
+        elif(tilt_angle_val < -1000):
+            tilt_angle_val = -1000
+            rospy.logwarn("Tilt Axis received cmd < -1000 of [%f]"%(msg.linear.z))
         try:
             drive_command = ('drive', (yaw_angle_val, tilt_angle_val))
             self.command_queue.put_nowait(drive_command)

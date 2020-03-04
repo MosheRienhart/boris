@@ -7,8 +7,7 @@
     <arg name="output"   default="screen"/>
     <arg name="respawn"   default="false"/>
     
-    <node pkg="boris_gimbal" type="boris_gimbal_node" name="odrive_gimbal"
-            output="$(arg output)" respawn="$(arg respawn)">
+    <node pkg="boris_gimbal" type="boris_gimbal_node" name="odrive_gimbal" ns="gimbal" output="$(arg output)" respawn="$(arg respawn)">
         
         <param name="connect_on_startup"   value="$(arg connect_on_startup)"/>
         <param name="calibrate_on_startup" value="$(arg calibrate_on_startup)"/>

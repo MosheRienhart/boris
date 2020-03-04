@@ -2,10 +2,8 @@
 <!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
      Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
-<robot
-  name="boris_description">
-  <link
-    name="base_link">
+<robot name="boris_description">
+  <link name="base_link">
     <inertial>
       <origin
         xyz="-0.000126889427596721 -0.022939618276426 0.114856317470281"
@@ -44,8 +42,7 @@
       </geometry>
     </collision>
   </link>
-  <link
-    name="left_wheel_link">
+  <link name="left_wheel_link">
     <inertial>
       <origin
         xyz="0.0298553485818144 -7.38983730436647E-14 -7.28085556632452E-06"
@@ -79,14 +76,11 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://boris_description/meshes/left_wheel_link.STL" />
+        <mesh filename="package://boris_description/meshes/left_wheel_link.STL" />
       </geometry>
     </collision>
   </link>
-  <joint
-    name="left_wheel_joint"
-    type="continuous">
+  <joint name="left_wheel_joint" type="continuous">
     <origin
       xyz="-0.3074 -1.02E-05 -0.017901"
       rpy="-3.1416 0 3.1416" />
@@ -97,8 +91,7 @@
     <axis
       xyz="1 0 0" />
   </joint>
-  <link
-    name="right_wheel_link">
+  <link name="right_wheel_link">
     <inertial>
       <origin
         xyz="0.0298553485818145 -7.38458824119234E-14 -7.28085556632452E-06"
@@ -118,13 +111,11 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://boris_description/meshes/right_wheel_link.STL" />
+        <mesh filename="package://boris_description/meshes/right_wheel_link.STL" />
       </geometry>
       <material
         name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
@@ -132,26 +123,19 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://boris_description/meshes/right_wheel_link.STL" />
+        <mesh filename="package://boris_description/meshes/right_wheel_link.STL" />
       </geometry>
     </collision>
   </link>
-  <joint
-    name="right_wheel_joint"
-    type="continuous">
+  <joint name="right_wheel_joint" type="continuous">
     <origin
       xyz="0.3074 -1.02E-05 -0.017901"
       rpy="3.1416 0 0" />
-    <parent
-      link="base_link" />
-    <child
-      link="right_wheel_link" />
-    <axis
-      xyz="1 0 0" />
+    <parent link="base_link" />
+    <child link="right_wheel_link" />
+    <axis xyz="1 0 0" />
   </joint>
-  <link
-    name="camera_yaw_link">
+  <link name="camera_yaw_link">
     <inertial>
       <origin
         xyz="0.0259503164915985 0.0524809585558006 -0.000244707467082439"
@@ -171,146 +155,21 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://boris_description/meshes/camera_yaw_link.STL" />
+        <mesh filename="package://boris_description/meshes/camera_yaw_link.STL" />
       </geometry>
       <material
         name="">
-        <color
-          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+        <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://boris_description/meshes/camera_yaw_link.STL" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+        <mesh filename="package://boris_description/meshes/camera_yaw_link.STL" />
       </geometry>
     </collision>
   </link>
-  <joint
-    name="camera_yaw_joint"
-    type="continuous">
-    <origin
-      xyz="0 -0.16095 1.1464"
-      rpy="-1.5708 0 3.1416" />
-    <parent
-      link="base_link" />
-    <child
-      link="camera_yaw_link" />
-    <axis
-      xyz="0 1 0" />
-  </joint>
-  <link
-    name="camera_tilt_link">
-    <inertial>
-      <origin
-        xyz="0.0493199630854666 -0.0173483331606608 9.4717301213354E-05"
-        rpy="0 0 0" />
-      <mass
-        value="0.0136650343598073" />
-      <inertia
-        ixx="1.44828626038019E-06"
-        ixy="-2.08688729262772E-08"
-        ixz="-4.90314729830074E-10"
-        iyy="5.20651608944564E-06"
-        iyz="8.17210329313954E-22"
-        izz="4.83945196946744E-06" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://boris_description/meshes/camera_tilt_link.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://boris_description/meshes/camera_tilt_link.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="camera_tilt_joint"
-    type="continuous">
-    <origin
-      xyz="0.041323 0.061915 0"
-      rpy="0 0 3.1416" />
-    <parent
-      link="camera_yaw_link" />
-    <child
-      link="camera_tilt_link" />
-    <axis
-      xyz="1 0 0" />
-  </joint>
-  <link
-    name="camera">
-    <inertial>
-      <origin
-        xyz="0.000246198107659857 -6.05670157047822E-05 -0.0130484995266258"
-        rpy="0 0 0" />
-      <mass
-        value="0.0447521989519099" />
-      <inertia
-        ixx="3.94471789824192E-06"
-        ixy="-2.80091623612559E-09"
-        ixz="2.44341503339889E-07"
-        iyy="2.73620891177657E-05"
-        iyz="-1.17387269771189E-09"
-        izz="2.7277525314549E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://boris_description/meshes/camera.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://boris_description/meshes/camera.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="camera_joint"
-    type="fixed">
-    <origin
-      xyz="0.041323 -0.035823 -0.01495"
-      rpy="3.1416 0 0" />
-    <parent
-      link="camera_tilt_link" />
-    <child
-      link="camera" />
-    <axis
-      xyz="0 0 0" />
-  </joint>
-  <link
-    name="gps_link">
+  <link name="gps_link">
     <inertial>
       <origin
         xyz="0.0001255508620167 0.00486728700369859 0.00515563637432703"
@@ -330,13 +189,10 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://boris_description/meshes/gps_link.STL" />
+        <mesh filename="package://boris_description/meshes/gps_link.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
@@ -344,26 +200,19 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://boris_description/meshes/gps_link.STL" />
+        <mesh filename="package://boris_description/meshes/gps_link.STL" />
       </geometry>
     </collision>
   </link>
-  <joint
-    name="gps_joint"
-    type="fixed">
+  <joint name="gps_joint" type="fixed">
     <origin
       xyz="0.026225 -0.24281 1.1433"
       rpy="0 0 3.1416" />
-    <parent
-      link="base_link" />
-    <child
-      link="gps_link" />
-    <axis
-      xyz="0 0 0" />
+    <parent link="base_link" />
+    <child link="gps_link" />
+    <axis xyz="0 0 0" />
   </joint>
-  <link
-    name="imu">
+  <link name="imu">
     <inertial>
       <origin
         xyz="0.0128931247706793 0.00106324875441657 -0.0102654300276027"
@@ -383,13 +232,10 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://boris_description/meshes/imu.STL" />
+        <mesh filename="package://boris_description/meshes/imu.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
@@ -397,22 +243,154 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://boris_description/meshes/imu.STL" />
+        <mesh filename="package://boris_description/meshes/imu.STL" />
       </geometry>
     </collision>
   </link>
-  <joint
-    name="imu_joint"
-    type="fixed">
+  <joint name="imu_joint" type="fixed">
     <origin
       xyz="0.013335 -0.212040199999975 0.20085"
       rpy="1.5707963267949 0 3.14159265358979" />
-    <parent
-      link="base_link" />
-    <child
-      link="imu" />
-    <axis
-      xyz="0 0 0" />
+    <parent link="base_link" />
+    <child link="imu" />
+    <axis xyz="0 0 0" />
   </joint>
+  <joint name="camera_yaw_joint" type="continuous">
+    <origin
+      xyz="0 -0.16095 1.1464"
+      rpy="-1.5708 0 3.1416" />
+    <parent link="base_link" />
+    <child link="camera_yaw_link" />
+    <axis xyz="0 1 0" />
+  </joint>
+  <link name="camera_tilt_link">
+    <inertial>
+      <origin
+        xyz="0.0493199630854666 -0.0173483331606608 9.4717301213354E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.0136650343598073" />
+      <inertia
+        ixx="1.44828626038019E-06"
+        ixy="-2.08688729262772E-08"
+        ixz="-4.90314729830074E-10"
+        iyy="5.20651608944564E-06"
+        iyz="8.17210329313954E-22"
+        izz="4.83945196946744E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://boris_description/meshes/camera_tilt_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://boris_description/meshes/camera_tilt_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="camera_tilt_joint" type="continuous">
+    <origin
+      xyz="0.041323 0.061915 0"
+      rpy="0 0 3.1416" />
+    <parent link="camera_yaw_link" />
+    <child link="camera_tilt_link" />
+    <axis xyz="1 0 0" />
+  </joint>
+  <joint name="camera_joint" type="fixed">
+    <origin
+      xyz="0.041323 -0.035823 -0.01495"
+      rpy="3.1416 0 0" />
+    <parent link="camera_tilt_link" />
+    <child link="camera_bottom_screw_frame" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="camera_bottom_screw_frame"/>
+  <joint name="camera_link_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.0175 0.0125"/>
+    <parent link="camera_bottom_screw_frame"/>
+    <child link="camera_link"/>
+  </joint>
+  <link name="camera_link">
+    <visual>
+      <origin rpy="1.57079632679 0 1.57079632679" xyz="0.0149 -0.0175 0"/>
+      <geometry>
+        <!-- <box size="${d435_cam_width} ${d435_cam_height} ${d435_cam_depth}"/> -->
+        <mesh filename="package://boris_description/meshes/d435.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.0175 0"/>
+      <geometry>
+        <box size="0.02505 0.09 0.025"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <!-- The following are not reliable values, and should not be used for modeling -->
+      <mass value="0.564"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257"/>
+    </inertial>
+  </link>
+  <!-- camera depth joints and links -->
+  <joint name="camera_depth_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="camera_link"/>
+    <child link="camera_depth_frame"/>
+  </joint>
+  <link name="camera_depth_frame"/>
+  <joint name="camera_depth_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="camera_depth_frame"/>
+    <child link="camera_depth_optical_frame"/>
+  </joint>
+  <link name="camera_depth_optical_frame"/>
+  <!-- camera left IR joints and links -->
+  <joint name="camera_infra1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.0 0"/>
+    <parent link="camera_link"/>
+    <child link="camera_infra1_frame"/>
+  </joint>
+  <link name="camera_infra1_frame"/>
+  <joint name="camera_infra1_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="camera_infra1_frame"/>
+    <child link="camera_infra1_optical_frame"/>
+  </joint>
+  <link name="camera_infra1_optical_frame"/>
+  <!-- camera right IR joints and links -->
+  <joint name="camera_infra2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 -0.05 0"/>
+    <parent link="camera_link"/>
+    <child link="camera_infra2_frame"/>
+  </joint>
+  <link name="camera_infra2_frame"/>
+  <joint name="camera_infra2_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="camera_infra2_frame"/>
+    <child link="camera_infra2_optical_frame"/>
+  </joint>
+  <link name="camera_infra2_optical_frame"/>
+  <!-- camera color joints and links -->
+  <joint name="camera_color_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.015 0"/>
+    <parent link="camera_link"/>
+    <child link="camera_color_frame"/>
+  </joint>
+  <link name="camera_color_frame"/>
+  <joint name="camera_color_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="camera_color_frame"/>
+    <child link="camera_color_optical_frame"/>
+  </joint>
+  <link name="camera_color_optical_frame"/>
 </robot>

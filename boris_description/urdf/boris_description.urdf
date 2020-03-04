@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
   name="boris_description">
   <link
     name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.000126889427596721 -0.022939618276426 0.114856317470281"
+        rpy="0 0 0" />
+      <mass
+        value="6.25092338139406" />
+      <inertia
+        ixx="0.157875862434322"
+        ixy="-4.17420320914168E-07"
+        ixz="3.92278672942633E-08"
+        iyy="0.157012634394671"
+        iyz="-1.16452308907686E-06"
+        izz="0.231739535357394" />
+    </inertial>
     <visual>
       <origin
         xyz="0 0 0"
@@ -14,7 +31,7 @@
       <material
         name="">
         <color
-          rgba="0.89804 0.91765 0.92941 1" />
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
       </material>
     </visual>
     <collision>
@@ -31,17 +48,17 @@
     name="left_wheel_link">
     <inertial>
       <origin
-        xyz="0.029855 -7.3899E-14 -7.2809E-06"
+        xyz="0.0298553485818144 -7.38983730436647E-14 -7.28085556632452E-06"
         rpy="0 0 0" />
       <mass
-        value="0.95801" />
+        value="0.958008587347379" />
       <inertia
-        ixx="0.0027027"
-        ixy="-1.0148E-14"
-        ixz="-3.8332E-07"
-        iyy="0.0015853"
-        iyz="4.4693E-16"
-        izz="0.0015854" />
+        ixx="0.00270268789560969"
+        ixy="-1.01481408372354E-14"
+        ixz="-3.83317404192889E-07"
+        iyy="0.00158533951189093"
+        iyz="4.46730984953298E-16"
+        izz="0.00158537445467052" />
     </inertial>
     <visual>
       <origin
@@ -54,7 +71,7 @@
       <material
         name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
@@ -84,17 +101,17 @@
     name="right_wheel_link">
     <inertial>
       <origin
-        xyz="0.029855 -7.3844E-14 -7.2809E-06"
+        xyz="0.0298553485818145 -7.38458824119234E-14 -7.28085556632452E-06"
         rpy="0 0 0" />
       <mass
-        value="0.95801" />
+        value="0.958008587347378" />
       <inertia
-        ixx="0.0027027"
-        ixy="-1.0147E-14"
-        ixz="-3.8332E-07"
-        iyy="0.0015853"
-        iyz="4.4944E-16"
-        izz="0.0015854" />
+        ixx="0.00270268789560969"
+        ixy="-1.01473510290911E-14"
+        ixz="-3.83317404192767E-07"
+        iyy="0.00158533951189094"
+        iyz="4.49273963051902E-16"
+        izz="0.00158537445467052" />
     </inertial>
     <visual>
       <origin
@@ -107,7 +124,7 @@
       <material
         name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
@@ -137,17 +154,17 @@
     name="camera_yaw_link">
     <inertial>
       <origin
-        xyz="-1.3628E-14 -0.023656 0.01664"
+        xyz="0.0259503164915985 0.0524809585558006 -0.000244707467082439"
         rpy="0 0 0" />
       <mass
-        value="0.011452" />
+        value="0.0236989643956742" />
       <inertia
-        ixx="2.4909E-06"
-        ixy="2.2797E-21"
-        ixz="7.9409E-22"
-        iyy="1.5057E-06"
-        iyz="-2.0869E-08"
-        izz="2.9229E-06" />
+        ixx="6.18500861568292E-06"
+        ixy="-1.15565378682225E-08"
+        ixz="2.22920046214975E-08"
+        iyy="3.58533094969821E-06"
+        iyz="-7.70649063923888E-08"
+        izz="4.50633805652113E-06" />
     </inertial>
     <visual>
       <origin
@@ -160,7 +177,7 @@
       <material
         name="">
         <color
-          rgba="0.89804 0.91765 0.92941 1" />
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
       </material>
     </visual>
     <collision>
@@ -177,30 +194,30 @@
     name="camera_yaw_joint"
     type="continuous">
     <origin
-      xyz="0 -0.10927 1.1284"
-      rpy="1.5708 0 -1.4442" />
+      xyz="0 -0.16095 1.1464"
+      rpy="-1.5708 0 3.1416" />
     <parent
       link="base_link" />
     <child
       link="camera_yaw_link" />
     <axis
-      xyz="0 -1 0" />
+      xyz="0 1 0" />
   </joint>
   <link
     name="camera_tilt_link">
     <inertial>
       <origin
-        xyz="0.0212599630854669 -0.0173483331606603 9.47173012137009E-05"
+        xyz="0.0493199630854666 -0.0173483331606608 9.4717301213354E-05"
         rpy="0 0 0" />
       <mass
-        value="0.0136650343598071" />
+        value="0.0136650343598073" />
       <inertia
-        ixx="1.44828626038017E-06"
-        ixy="-2.08688729262852E-08"
-        ixz="-4.90314729826696E-10"
-        iyy="5.20651608944557E-06"
-        iyz="3.83811804224605E-22"
-        izz="4.83945196946737E-06" />
+        ixx="1.44828626038019E-06"
+        ixy="-2.08688729262772E-08"
+        ixz="-4.90314729830074E-10"
+        iyy="5.20651608944564E-06"
+        iyz="8.17210329313954E-22"
+        izz="4.83945196946744E-06" />
     </inertial>
     <visual>
       <origin
@@ -230,8 +247,8 @@
     name="camera_tilt_joint"
     type="continuous">
     <origin
-      xyz="0 -0.043915 0.013263"
-      rpy="0.03975 1.5708 0" />
+      xyz="0.041323 0.061915 0"
+      rpy="0 0 3.1416" />
     <parent
       link="camera_yaw_link" />
     <child
@@ -240,20 +257,20 @@
       xyz="1 0 0" />
   </joint>
   <link
-    name="camera_link">
+    name="camera">
     <inertial>
       <origin
-        xyz="0.00024624 -6.0593E-05 -0.013048"
+        xyz="0.000246198107659857 -6.05670157047822E-05 -0.0130484995266258"
         rpy="0 0 0" />
       <mass
-        value="0.044752" />
+        value="0.0447521989519099" />
       <inertia
-        ixx="3.9447E-06"
-        ixy="-2.798E-09"
-        ixz="2.4435E-07"
-        iyy="2.7362E-05"
-        iyz="-1.1787E-09"
-        izz="2.7278E-05" />
+        ixx="3.94471789824192E-06"
+        ixy="-2.80091623612559E-09"
+        ixz="2.44341503339889E-07"
+        iyy="2.73620891177657E-05"
+        iyz="-1.17387269771189E-09"
+        izz="2.7277525314549E-05" />
     </inertial>
     <visual>
       <origin
@@ -261,12 +278,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://boris_description/meshes/camera_link.STL" />
+          filename="package://boris_description/meshes/camera.STL" />
       </geometry>
       <material
         name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
@@ -275,7 +292,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://boris_description/meshes/camera_link.STL" />
+          filename="package://boris_description/meshes/camera.STL" />
       </geometry>
     </collision>
   </link>
@@ -283,30 +300,30 @@
     name="camera_joint"
     type="fixed">
     <origin
-      xyz="0 0 0"
-      rpy="0 1.57079632679 1.57079632679" />
+      xyz="0.041323 -0.035823 -0.01495"
+      rpy="3.1416 0 0" />
     <parent
       link="camera_tilt_link" />
     <child
-      link="camera_link" />
+      link="camera" />
     <axis
       xyz="0 0 0" />
   </joint>
   <link
-    name="shoulder_link">
+    name="gps_link">
     <inertial>
       <origin
-        xyz="-0.01099 0.018295 0.00067864"
+        xyz="0.0001255508620167 0.00486728700369859 0.00515563637432703"
         rpy="0 0 0" />
       <mass
-        value="1.8327" />
+        value="0.00832308173444994" />
       <inertia
-        ixx="0.015741"
-        ixy="0.00114"
-        ixz="-0.00016775"
-        iyy="0.031474"
-        iyz="1.4855E-05"
-        izz="0.019166" />
+        ixx="1.76089133677471E-06"
+        ixy="6.38433276630466E-09"
+        ixz="1.97420211210795E-08"
+        iyy="3.34476029528236E-06"
+        iyz="5.07173398131572E-08"
+        izz="1.98264860981337E-06" />
     </inertial>
     <visual>
       <origin
@@ -314,12 +331,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://boris_description/meshes/shoulder_link.STL" />
+          filename="package://boris_description/meshes/gps_link.STL" />
       </geometry>
       <material
         name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
@@ -328,38 +345,38 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://boris_description/meshes/shoulder_link.STL" />
+          filename="package://boris_description/meshes/gps_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="shoulder_joint"
-    type="continuous">
+    name="gps_joint"
+    type="fixed">
     <origin
-      xyz="0 0 0.23735"
-      rpy="1.5708 0 0" />
+      xyz="0.026225 -0.24281 1.1433"
+      rpy="0 0 3.1416" />
     <parent
       link="base_link" />
     <child
-      link="shoulder_link" />
+      link="gps_link" />
     <axis
-      xyz="0 -1 0" />
+      xyz="0 0 0" />
   </joint>
   <link
-    name="arm_link">
+    name="imu">
     <inertial>
       <origin
-        xyz="0.260991127304886 -2.01384249129966E-05 -0.077129526614947"
+        xyz="0.0128931247706793 0.00106324875441657 -0.0102654300276027"
         rpy="0 0 0" />
       <mass
-        value="0.973437545788911" />
+        value="0.000983130183652036" />
       <inertia
-        ixx="0.000938924061097824"
-        ixy="-1.8728113395928E-06"
-        ixz="-1.17001838074258E-06"
-        iyy="0.0279454336137837"
-        iyz="1.08340990506014E-10"
-        izz="0.0288743472817407" />
+        ixx="2.72780814792229E-08"
+        ixy="-1.83135757569055E-11"
+        ixz="-1.86463715353332E-11"
+        iyy="7.48563776021963E-08"
+        iyz="1.81575171893231E-12"
+        izz="4.80453464098757E-08" />
     </inertial>
     <visual>
       <origin
@@ -367,12 +384,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://boris_description/meshes/arm_link.STL" />
+          filename="package://boris_description/meshes/imu.STL" />
       </geometry>
       <material
         name="">
         <color
-          rgba="1 1 1 0.3" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
@@ -381,74 +398,21 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://boris_description/meshes/arm_link.STL" />
+          filename="package://boris_description/meshes/imu.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="arm_joint"
-    type="continuous">
+    name="imu_joint"
+    type="fixed">
     <origin
-      xyz="0.0635 0.102 0"
-      rpy="1.5708 1.0601 1.5708" />
+      xyz="0.013335 -0.212040199999975 0.20085"
+      rpy="1.5707963267949 0 3.14159265358979" />
     <parent
-      link="shoulder_link" />
+      link="base_link" />
     <child
-      link="arm_link" />
+      link="imu" />
     <axis
-      xyz="0 0 1" />
-  </joint>
-  <link
-    name="elbow_link">
-    <inertial>
-      <origin
-        xyz="0.23857 2.5672E-07 0.070412"
-        rpy="0 0 0" />
-      <mass
-        value="1.0102" />
-      <inertia
-        ixx="0.0011612"
-        ixy="-3.8524E-08"
-        ixz="-3.8993E-08"
-        iyy="0.030213"
-        iyz="-8.6429E-14"
-        izz="0.031364" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://boris_description/meshes/elbow_link.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="1 1 1 0.3" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://boris_description/meshes/elbow_link.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="elbow_joint"
-    type="continuous">
-    <origin
-      xyz="0.4826 0 -0.007874"
-      rpy="3.1416 0 0.92069" />
-    <parent
-      link="arm_link" />
-    <child
-      link="elbow_link" />
-    <axis
-      xyz="0 0 1" />
+      xyz="0 0 0" />
   </joint>
 </robot>

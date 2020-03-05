@@ -92,8 +92,8 @@ class ODriveNode(object):
         
         self.publish_odom    = get_param('~publish_odom', True)
         self.publish_tf      = get_param('~publish_odom_tf', False)
-        self.odom_topic      = get_param('~odom_topic', "odom")
-        self.odom_frame      = get_param('~odom_frame', "odom")
+        self.odom_topic      = get_param('~odom_topic', "/odom")
+        self.odom_frame      = get_param('~odom_frame', "/odom")
         self.base_frame      = get_param('~base_frame', "base_link")
         self.odom_calc_hz    = get_param('~odom_calc_hz', 10)
         
@@ -195,7 +195,7 @@ class ODriveNode(object):
             self.tf_msg.transform.rotation.z = 1.0
             
         if self.publish_joint_angles:
-            self.joint_state_publisher = rospy.Publisher('joint_states', JointState, queue_size=2)
+            self.joint_state_publisher = rospy.Publisher('/joint_states', JointState, queue_size=2)
             
             jsm = JointState()
             self.joint_state_msg = jsm

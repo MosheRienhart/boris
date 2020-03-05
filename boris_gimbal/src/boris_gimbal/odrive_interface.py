@@ -241,7 +241,6 @@ class ODriveInterfaceAPI(object):
             axis.controller.pos_setpoint = 0
             axis.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
             axis.controller.config.control_mode = CTRL_MODE_POSITION_CONTROL
-        
         #self.engaged = True
         return True
         
@@ -260,11 +259,11 @@ class ODriveInterfaceAPI(object):
         if not self.driver:
             self.logger.error("Not connected.")
             return
-        #try:
-        self.yaw_axis.controller.pos_setpoint = yaw_motor_val
-        self.tilt_axis.controller.pos_setpoint = -tilt_motor_val
-        #except (fibre.protocol.ChannelBrokenException, AttributeError) as e:
-        #    raise ODriveFailure(str(e))
+        try:
+         self.yaw_axis.controller.pos_setpoint = yaw_motor_val
+         self.tilt_axis.controller.pos_setpoint = -tilt_motor_val
+        except (fibre.protocol.ChannelBrokenException, AttributeError) as e:
+            raise ODriveFailure(str(e))
         
     def feed_watchdog(self):
         self.yaw_axis.watchdog_feed()
@@ -295,8 +294,8 @@ class ODriveInterfaceAPI(object):
             
     def yaw_vel_estimate(self):  return self.yaw_axis.encoder.vel_estimate   if self.yaw_axis  else 0 # units: encoder counts/s
     def tilt_vel_estimate(self): return self.tilt_axis.encoder.vel_estimate  if self.tilt_axis else 0 # neg is forward for tilt
-    def yaw_pos(self):           return self.yaw_axis.encoder.pos_cpr        if self.yaw_axis  else 0  # units: encoder counts
-    def tilt_pos(self):          return self.tilt_axis.encoder.pos_cpr       if self.tilt_axis else 0   # sign!
+    def yaw_pos(self):           return self.yaw_axis.encoder.shadow_count   if self.yaw_axis  else 0  # units: encoder counts
+    def tilt_pos(self):          return self.tilt_axis.encoder.shadow_count  if self.tilt_axis else 0   # sign!
     
     # TODO check these match the tilt motors, but it doesn't matter for now
     def yaw_temperature(self):   return self.yaw_axis.motor.get_inverter_temp()  if self.yaw_axis  else 0.

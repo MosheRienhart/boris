@@ -308,8 +308,8 @@
   </joint>
   <joint name="camera_joint" type="fixed">
     <origin
-      xyz="0.041323 -0.035823 -0.01495"
-      rpy="3.1416 0 0" />
+      xyz="0.041323 -0.023823 0"
+      rpy="3.1416 1.57079632679 1.57079632679" />
     <parent link="camera_tilt_link" />
     <child link="camera_bottom_screw_frame" />
     <axis xyz="0 0 0" />

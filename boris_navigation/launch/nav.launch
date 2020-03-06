@@ -46,7 +46,7 @@
     <param name="TrajectoryPlannerROS/global_frame_id" value="$(arg local_frame_id)"/>
     <param name="TrajectoryPlannerROS/robot_base_frame" value="$(arg base_frame_id)"/>
     <!-- Inputs and output topics; use nav_cmd_vel in boris_base -->
-    <remap from="cmd_vel" to="nav_cmd_vel"/>
+    <!--<remap from="cmd_vel" to="nav_cmd_vel"/> -->
     <remap from="odom" to="$(arg odom_topic)"/>
     <remap from="scan" to="$(arg scan_topic)"/>
   </node>

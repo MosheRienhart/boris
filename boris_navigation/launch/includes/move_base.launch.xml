@@ -25,7 +25,7 @@
     <param name="DWAPlannerROS/global_frame_id" value="$(arg odom_frame_id)"/>
 
     <!-- Use a secondary input to whrbase rather than a mux, for now... -->
-    <remap from="cmd_vel" to="nav_cmd_vel"/>
+    <!--<remap from="cmd_vel" to="nav_cmd_vel"/> -->
     <remap from="odom" to="$(arg odom_topic)"/>
     <remap from="scan" to="$(arg scan_topic)"/>
   </node>

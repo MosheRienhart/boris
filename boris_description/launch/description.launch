@@ -11,13 +11,6 @@
   <param
     name="robot_description"
     textfile="$(find boris_description)/urdf/boris_description.urdf" />
-  <param
-    name="use_gui"
-    value="$(arg gui)" />
-  <node
-    name="joint_state_publisher"
-    pkg="joint_state_publisher"
-    type="joint_state_publisher" />
   <node
     name="robot_state_publisher"
     pkg="robot_state_publisher"

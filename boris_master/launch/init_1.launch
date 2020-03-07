@@ -1,7 +1,0 @@
-<!-- Initialize BORIS: Phase 1 -->
-<launch>
-  <!-- Load robot description and tf server -->
-  <include file="$(find boris_description)/launch/display.launch"/>
-  <!-- Start simulated laser scan -->
-  <include file="$(find boris_scan)/launch/scan.launch"/>
-</launch>

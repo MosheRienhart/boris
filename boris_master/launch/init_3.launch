@@ -1,5 +1,0 @@
-<!-- Initialize BORIS: Phase 3 -->
-<launch>
-  <!-- Start dynamic navigation planning and execution -->
-  <include file="$(find boris_navigation)/launch/nav.launch"/>
-</launch>

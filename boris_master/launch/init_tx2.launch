@@ -1,0 +1,20 @@
+<!-- Initialize BORIS: Launch All Phases Simultaneously -->
+<launch>
+   <!-- Start motor control of base (velocity control of left and right wheels)-->
+  <include file="$(find boris_base)/launch/base.launch"/>
+
+   <!-- Start motor control of realsense camera gimbal (position control of yaw and tilt gimbal motors)-->
+  <include file="$(find boris_gimbal)/launch/gimbal.launch"/>
+
+  <!-- Load robot description and tf server -->
+  <include file="$(find boris_description)/launch/description.launch"/>
+
+  <!-- Start realsense camera, simulated laser scan (future add ortho projector of scan -->
+  <include file="$(find boris_scan)/launch/scan.launch"/>
+
+  <!-- Start SLAM (Simultaneous Mapping and Localization) and AMCL position estimation -->
+  <include file="$(find boris_mapping)/launch/start.launch"/>
+
+  <!-- Start dynamic navigation planning and execution -->
+  <include file="$(find boris_navigation)/launch/nav.launch"/>
+</launch>

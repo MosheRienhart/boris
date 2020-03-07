@@ -1,5 +1,0 @@
-<!-- Initialize BORIS: Alternative Phase 2 -->
-<launch>
-  <!-- Start SLAM (Simultaneous Mapping and Localization) with saved map -->
-  <include file="$(find boris_mapping)/launch/start_saved.launch"/>
-</launch>

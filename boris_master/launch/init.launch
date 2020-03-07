@@ -1,7 +1,0 @@
-<!-- Initialize BORIS: Launch All Phases Simultaneously -->
-<launch>
-  <include file="$(find boris_master)/launch/init_0.launch"/>
-  <include file="$(find boris_master)/launch/init_1.launch"/>
-  <include file="$(find boris_master)/launch/init_2.launch"/>
-  <include file="$(find boris_master)/launch/init_3.launch"/>
-</launch>

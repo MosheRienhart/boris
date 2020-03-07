@@ -50,6 +50,8 @@ def get_param(name, default):
     return val
 
 class ODriveNode(object):
+    #To adjust encoder to horizontal position for zero radians
+    encoder_index_offset = -50 
     last_pos = 0.0
     driver = None
     prerolling = False
@@ -336,7 +338,7 @@ class ODriveNode(object):
                         self.status = "engaged"
                         
                     #yaw_angle_val, tilt_angle_val = motor_command[1]
-                    self.driver.drive(self.yaw_angle_skip_queue_val,self.tilt_angle_skip_queue_val)
+                    self.driver.drive(self.yaw_angle_skip_queue_val - self.encoder_index_offset,self.tilt_angle_skip_queue_val - self.encoder_index_offset)
                     #self.last_pos = max(abs(yaw_angle_val), abs(tilt_angle_val))
                     self.last_cmd_gimble_angle_time = time_now
                 except (ChannelBrokenException, ChannelDamagedException):
@@ -599,8 +601,8 @@ class ODriveNode(object):
         jsm = self.joint_state_msg
         jsm.header.stamp = time_now
         if self.driver:
-            jsm.position[0] = (float(self.new_pos_yaw)/self.encoder_cpr) * 2 * math.pi
-            jsm.position[1] = (float(self.new_pos_tilt)/self.encoder_cpr) * 2 * math.pi
+            jsm.position[0] = (float(self.new_pos_yaw + self.encoder_index_offset)/self.encoder_cpr) * 2 * math.pi
+            jsm.position[1] = (float(self.new_pos_tilt + self.encoder_index_offset)/self.encoder_cpr) * 2 * math.pi
             
         self.joint_state_publisher.publish(jsm)
 

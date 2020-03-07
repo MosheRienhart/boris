@@ -765,7 +765,8 @@ class ODriveNode(object):
         #self.odom_msg.pose.covariance
          # x y z
          # x y z
-    
+    	#rospy.loginfo("Odom Pose Position: [%f, %f]"%(self.x, self.y))
+
         self.tf_msg.transform.translation.x = self.x
         self.tf_msg.transform.translation.y = self.y
         #self.tf_msg.transform.rotation.x

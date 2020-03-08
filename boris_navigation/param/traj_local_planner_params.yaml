@@ -4,27 +4,27 @@
 #  robot_base_frame: base_footprint
 
 # Robot Configuration Parameters - Fetchbot
-  max_vel_x: 0.1 # move relatively slowly, otherwise slam can't keep up (changed from .5 to .2)
-  min_vel_x: 0.02 #(changed from .1 to .05)
+  max_vel_x: 0.2 # move relatively slowly, otherwise slam can't keep up (changed from .5 to .2)
+  min_vel_x: 0.05 #(changed from .1 to .05)
 
 #  max_vel_y: 0.3   # 1.0  
 #  min_vel_y: 0.1  # 0.1  
   max_vel_y: 0.0   # 1.0  
   min_vel_y: 0.0  # 0.1  
 
-  max_rot_vel: 0.1 #(changed from .5 to .2)
-  min_rot_vel: 0.02 #(changed from .1 to .05)
+  max_rot_vel: 0.2 #(changed from .5 to .2)
+  min_rot_vel: 0.05 #(changed from .1 to .05)
 
-  max_trans_vel: 0.1 # choose slightly less than the base's capability (changed from .5 to .2)
-  min_trans_vel: 0.02 # this is the min trans velocity when there is negligible rotational velocity (changed from .1 to .05)
+  max_trans_vel: 0.2 # choose slightly less than the base's capability (changed from .5 to .2)
+  min_trans_vel: 0.05 # this is the min trans velocity when there is negligible rotational velocity (changed from .1 to .05)
 
 
   # Warning!
   #   do not set min_trans_vel to 0.0 otherwise dwa will always think translational velocities
   #   are non-negligible and small in place rotational velocities will be created.
 
-  max_vel_theta: 0.1  # choose slightly less than the base's capability (changed from .5 to .2)
-  min_vel_theta: 0.02  # this is the min angular velocity when there is negligible translational velocity (changed from .1 to .05)
+  max_vel_theta: 0.2  # choose slightly less than the base's capability (changed from .5 to .2)
+  min_vel_theta: 0.05  # this is the min angular velocity when there is negligible translational velocity (changed from .1 to .05)
   min_in_place_vel_theta: 0.02
   
   escape_vel: -0.10

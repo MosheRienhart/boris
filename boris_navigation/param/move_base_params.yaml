@@ -36,7 +36,7 @@ recovery_behaviors:
 reset1:
   reset_distance: 0.02
 rotation1:
-  max_rotational_vel: 0.2 #changed from .3 to .2
-  min_rotational_vel: 0.1 #changed from .2 to .1
+  max_rotational_vel: 0.2 #changed from .3 to .1
+  min_rotational_vel: 0.05 #changed from .2 to .02
 reset2:
   reset_distance: 0.05

@@ -13,8 +13,8 @@
   <include file="$(find boris_scan)/launch/scan.launch"/>
 
   <!-- Start Gmapping SLAM (Simultaneous Mapping and Localization) -->
-  <include file="$(find boris_mapping)/launch/start.launch"/>
+  <include file="$(find boris_mapping)/launch/gmapping.launch"/>
 
   <!-- Start dynamic navigation planning and execution using only odometry frame -->
-  <include file="$(find boris_navigation)/launch/nav_use_odom.launch"/>
+  include file="$(find boris_navigation)/launch/nav_use_odom.launch"/>
 </launch>

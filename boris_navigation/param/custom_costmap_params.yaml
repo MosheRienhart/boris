@@ -1,11 +1,11 @@
 global_costmap:
-  robot_radius: 0.11  # distance a circular robot should be clear of the obstacle (kobuki: 0.18)
-  footprint: [ [-0.11, 0.0], [-0.07778, -0.07778], [0.0, -0.11], [0.07778, -0.07778], [0.11, 0.0], [0.07778, 0.07778], [0.0, 0.11], [-0.07778,0.07778]]   
+  robot_radius: 0.4  # distance a circular robot should be clear of the obstacle (kobuki: 0.18) originally .1
+  footprint: [ [-0.4, 0.0], [-0.07778, -0.07778], [0.0, -0.4], [0.07778, -0.07778], [0.4, 0.0], [0.07778, 0.07778], [0.0, 0.4], [-0.07778,0.07778]]   
 
 local_costmap:
-  robot_radius: 0.10
+  robot_radius: 0.39
   # slightly shrunken version of the above footprint
-  footprint: [ [-0.10, 0.0], [-0.07071, -0.07071], [0.0, -0.10], [0.07071, -0.07071], [0.10, 0.0], [0.07071, 0.07071], [0.0, 0.10], [-0.07071,0.07071]]   
+  footprint: [ [-0.39, 0.0], [-0.07071, -0.07071], [0.0, -0.39], [0.07071, -0.07071], [0.39, 0.0], [0.07071, 0.07071], [0.0, 0.39], [-0.07071,0.07071]]   
 
 
 

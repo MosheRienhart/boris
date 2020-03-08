@@ -16,5 +16,5 @@
   <include file="$(find boris_mapping)/launch/gmapping.launch"/>
 
   <!-- Start dynamic navigation planning and execution using only odometry frame -->
-  include file="$(find boris_navigation)/launch/nav_use_odom.launch"/>
+  <include file="$(find boris_navigation)/launch/nav_use_odom.launch"/>
 </launch>

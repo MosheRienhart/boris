@@ -261,8 +261,8 @@ class ODriveInterfaceAPI(object):
             self.logger.error("Not connected.")
             return
         #try:
-        self.left_axis.controller.vel_setpoint = left_motor_val
-        self.right_axis.controller.vel_setpoint = -right_motor_val
+        self.left_axis.controller.vel_setpoint = -left_motor_val
+        self.right_axis.controller.vel_setpoint = right_motor_val
         #except (fibre.protocol.ChannelBrokenException, AttributeError) as e:
         #    raise ODriveFailure(str(e))
         
@@ -295,8 +295,8 @@ class ODriveInterfaceAPI(object):
             
     def left_vel_estimate(self):  return self.left_axis.encoder.vel_estimate   if self.left_axis  else 0 # units: encoder counts/s
     def right_vel_estimate(self): return self.right_axis.encoder.vel_estimate  if self.right_axis else 0 # neg is forward for right
-    def left_pos(self):           return self.left_axis.encoder.pos_cpr        if self.left_axis  else 0  # units: encoder counts
-    def right_pos(self):          return self.right_axis.encoder.pos_cpr       if self.right_axis else 0   # sign!
+    def left_pos(self):           return -1 * self.left_axis.encoder.pos_cpr        if self.left_axis  else 0  # units: encoder counts
+    def right_pos(self):          return -1 * self.right_axis.encoder.pos_cpr       if self.right_axis else 0   # sign!
     
     # TODO check these match the right motors, but it doesn't matter for now
     def left_temperature(self):   return self.left_axis.motor.get_inverter_temp()  if self.left_axis  else 0.

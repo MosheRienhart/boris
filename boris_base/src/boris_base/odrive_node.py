@@ -790,7 +790,7 @@ class ODriveNode(object):
         jsm.header.stamp = time_now
         if self.driver:
             jsm.position[0] = 2*math.pi * self.new_pos_l  / self.encoder_cpr
-            jsm.position[1] = 2*math.pi * self.new_pos_r / self.encoder_cpr
+            jsm.position[1] = -2*math.pi * self.new_pos_r / self.encoder_cpr
             
         self.joint_state_publisher.publish(jsm)
 

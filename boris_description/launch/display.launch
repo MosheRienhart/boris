@@ -3,5 +3,5 @@
     name="rviz"
     pkg="rviz"
     type="rviz"
-    args="-d $(find boris_description)/urdf.rviz" />
+    args="-d $(find boris_navigation)/navigation.rviz" />
 </launch>

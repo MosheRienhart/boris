@@ -362,11 +362,98 @@
     <axis
       xyz="1 0 0" />
   </joint>
-  <joint name="camera_joint" type="fixed">
+  <joint name="camera2_joint" type="fixed">
     <origin
       xyz="0.041323 -0.023823 0"
       rpy="3.1416 1.57079632679 1.57079632679" />
     <parent link="camera_tilt_link" />
+    <child link="camera2_bottom_screw_frame" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="camera2_bottom_screw_frame"/>
+  <joint name="camera2_link_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.0175 0.0125"/>
+    <parent link="camera2_bottom_screw_frame"/>
+    <child link="camera2_link"/>
+  </joint>
+  <link name="camera2_link">
+    <visual>
+      <origin rpy="1.57079632679 0 1.57079632679" xyz="0.0149 -0.0175 0"/>
+      <geometry>
+        <!-- <box size="${d435_cam_width} ${d435_cam_height} ${d435_cam_depth}"/> -->
+        <mesh filename="package://boris_description/meshes/d435.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.0175 0"/>
+      <geometry>
+        <box size="0.02505 0.09 0.025"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <!-- The following are not reliable values, and should not be used for modeling -->
+      <mass value="0.564"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257"/>
+    </inertial>
+  </link>
+  <!-- camera depth joints and links -->
+  <joint name="camera2_depth_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="camera2_link"/>
+    <child link="camera2_depth_frame"/>
+  </joint>
+  <link name="camera2_depth_frame"/>
+  <joint name="camera2_depth_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="camera2_depth_frame"/>
+    <child link="camera2_depth_optical_frame"/>
+  </joint>
+  <link name="camera2_depth_optical_frame"/>
+  <!-- camera left IR joints and links -->
+  <joint name="camera2_infra1_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.0 0"/>
+    <parent link="camera2_link"/>
+    <child link="camera2_infra1_frame"/>
+  </joint>
+  <link name="camera2_infra1_frame"/>
+  <joint name="camera2_infra1_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="camera2_infra1_frame"/>
+    <child link="camera2_infra1_optical_frame"/>
+  </joint>
+  <link name="camera2_infra1_optical_frame"/>
+  <!-- camera right IR joints and links -->
+  <joint name="camera2_infra2_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 -0.05 0"/>
+    <parent link="camera2_link"/>
+    <child link="camera2_infra2_frame"/>
+  </joint>
+  <link name="camera2_infra2_frame"/>
+  <joint name="camera2_infra2_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="camera2_infra2_frame"/>
+    <child link="camera2_infra2_optical_frame"/>
+  </joint>
+  <link name="camera2_infra2_optical_frame"/>
+  <!-- camera color joints and links -->
+  <joint name="camera2_color_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.015 0"/>
+    <parent link="camera2_link"/>
+    <child link="camera2_color_frame"/>
+  </joint>
+  <link name="camera2_color_frame"/>
+  <joint name="camera2_color_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="camera2_color_frame"/>
+    <child link="camera2_color_optical_frame"/>
+  </joint>
+  <link name="camera2_color_optical_frame"/>
+  <joint name="camera_joint" type="fixed">
+    <origin
+      xyz="0.29 0 0.13"
+      rpy="3.1416 0 0" />
+    <parent link="base_link" />
     <child link="camera_bottom_screw_frame" />
     <axis xyz="0 0 0" />
   </joint>

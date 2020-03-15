@@ -7,7 +7,6 @@ Panels:
         - /Global Options1
         - /Status1
         - /Grid1
-        - /Grid1/Status1
         - /RobotModel1
         - /RobotModel1/Links1
         - /RobotModel1/Links1/base_link1
@@ -16,9 +15,7 @@ Panels:
         - /PointCloud21
         - /LaserScan1
         - /Map1
-        - /Map1/Status1
         - /Odometry1
-        - /Odometry1/Status1
       Splitter Ratio: 0.4941176474094391
     Tree Height: 321
   - Class: rviz/Selection
@@ -39,7 +36,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud2
+    SyncSource: ""
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -78,6 +75,47 @@ Visualization Manager:
         base_link:
           Alpha: 1
           Show Axes: true
+          Show Trail: false
+          Value: true
+        camera2_bottom_screw_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera2_color_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera2_color_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera2_depth_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera2_depth_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera2_infra1_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera2_infra1_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera2_infra2_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera2_infra2_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera2_link:
+          Alpha: 1
+          Show Axes: false
           Show Trail: false
           Value: true
         camera_bottom_screw_frame:
@@ -289,25 +327,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.0301499366760254
+      Distance: 0.3919105529785156
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.35782504081726074
-        Y: -0.5543804168701172
-        Z: 1.0506236553192139
+        X: 0.264625608921051
+        Y: 0.06923393905162811
+        Z: 0.23155832290649414
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.10020341724157333
+      Pitch: 1.1252027750015259
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.2821879386901855
+      Yaw: 5.04218864440918
     Saved: ~
 Window Geometry:
   Displays:
@@ -325,5 +363,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1215
-  X: 221
+  X: 65
   Y: 59

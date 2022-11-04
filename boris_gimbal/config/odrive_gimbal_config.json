@@ -46,11 +46,11 @@
           "config":{
              "vel_ramp_rate":10000.0,
              "setpoints_in_cpr":false,
-             "vel_limit":20000.0,
-             "vel_gain":0.001500000013038516,
+             "vel_limit":100,
+             "vel_gain":0.16,
              "pos_gain":20.0,
              "vel_limit_tolerance":1.2000000476837158,
-             "vel_integrator_gain":0.0024999999441206455,
+             "vel_integrator_gain":0.32,
              "control_mode":3
           }
        },
@@ -66,6 +66,7 @@
              "current_lim_tolerance":1.25,
              "calibration_current":6.0,
              "requested_current_range":5.0,
+             "torque_constant":0.07254385964,
              "motor_type":2,
              "pre_calibrated":true,
              "current_control_bandwidth":1000.0,

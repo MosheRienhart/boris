@@ -58,7 +58,9 @@ class ODriveInterfaceAPI(object):
         if self.driver:
             self.logger.info("Already connected. Disconnecting and reconnecting.")
         try:
-            self.driver = odrive.find_any(serial_number="207C35A3524B", timeout=timeout, logger=self.logger)
+            old_sn = "207C35A3524B"
+            gimbal_sn = "20523881304E"
+            self.driver = odrive.find_any(serial_number="20523881304E", timeout=timeout, logger=self.logger)
             self.axes = (self.driver.axis0, self.driver.axis1)
         except:
             self.logger.error("No ODrive found. Is device powered?")
@@ -238,7 +240,8 @@ class ODriveInterfaceAPI(object):
 
         #self.logger.debug("Setting drive mode.")
         for axis in self.axes:
-            axis.controller.pos_setpoint = 0
+            #11/04/22 REL as of 0.5.5 this is a write only property and default value is 0. no value in changing
+            # axis.controller.pos_setpoint = 0
             axis.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
             axis.controller.config.control_mode = CTRL_MODE_POSITION_CONTROL
         #self.engaged = True
@@ -260,8 +263,10 @@ class ODriveInterfaceAPI(object):
             self.logger.error("Not connected.")
             return
         try:
-         self.yaw_axis.controller.pos_setpoint = yaw_motor_val
-         self.tilt_axis.controller.pos_setpoint = -tilt_motor_val
+            self.yaw_axis.controller.move_incremental(yaw_motor_val,False) 
+            self.tilt_axis.controller.move_incremental(-tilt_motor_val,False)
+        #  self.yaw_axis.controller.pos_setpoint = yaw_motor_val
+        #  self.tilt_axis.controller.pos_setpoint = -tilt_motor_val
         except (fibre.protocol.ChannelBrokenException, AttributeError) as e:
             raise ODriveFailure(str(e))
         
@@ -297,12 +302,14 @@ class ODriveInterfaceAPI(object):
     def yaw_pos(self):           return self.yaw_axis.encoder.shadow_count   if self.yaw_axis  else 0  # units: encoder counts
     def tilt_pos(self):          return self.tilt_axis.encoder.shadow_count  if self.tilt_axis else 0   # sign!
     
-    # TODO check these match the tilt motors, but it doesn't matter for now
-    def yaw_temperature(self):   return self.yaw_axis.motor.get_inverter_temp()  if self.yaw_axis  else 0.
-    def tilt_temperature(self):  return self.tilt_axis.motor.get_inverter_temp() if self.tilt_axis else 0.
+    # 11/04/22 REL this does not appear to be implemented in 0.5.5 of ODrive useless
+    # def yaw_temperature(self):   return self.yaw_axis.motor.get_inverter_temp()  if self.yaw_axis  else 0.
+    # def tilt_temperature(self):  return self.tilt_axis.motor.get_inverter_temp() if self.tilt_axis else 0.
     
-    def yaw_current(self):       return self.yaw_axis.motor.current_control.Ibus  if self.yaw_axis and self.yaw_axis.current_state > 1 else 0.
-    def tilt_current(self):      return self.tilt_axis.motor.current_control.Ibus if self.tilt_axis and self.tilt_axis.current_state > 1 else 0.
+
+    #11/04/22 REL IBUS is the original parameter, but was removed as of 0.5.5
+    def yaw_current(self):       return self.yaw_axis.motor.current_control.I_measured_report_filter_k if self.yaw_axis and self.yaw_axis.current_state > 1 else 0.
+    def tilt_current(self):      return self.tilt_axis.motor.current_control.I_measured_report_filter_k if self.tilt_axis and self.tilt_axis.current_state > 1 else 0.
     
     # from axis.hpp: https://github.com/madcowswe/ODrive/blob/767a2762f9b294b687d761029ef39e742bdf4539/Firmware/MotorControl/axis.hpp#L26
     MOTOR_STATES = [

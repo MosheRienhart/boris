@@ -64,12 +64,12 @@ class ODriveNode(object):
     #AS5048 -> 16384 Steps/rev (SPI/I2C interface)
     #AS5047P -> 4000 Steps/rev = 1000PPR (ABI Interface)
     #AS5047D -> 2000 Steps/rev = 500PPR (ABI Interface)
-    axis_for_tilt = 1
+    axis_for_tilt = 0
     encoder_cpr = 2000
     
     # Startup parameters
     connect_on_startup = True
-    calibrate_on_startup = False
+    calibrate_on_startup = True
     engage_on_startup = True
     
     publish_joint_angles = True
@@ -80,13 +80,13 @@ class ODriveNode(object):
     def __init__(self):
         self.sim_mode             = get_param('simulation_mode', False)
         self.publish_joint_angles = get_param('publish_joint_angles', True) # if self.sim_mode else False
-        self.publish_temperatures = get_param('publish_temperatures', True)
+        self.publish_temperatures = get_param('publish_temperatures', False)
         
         self.axis_for_tilt = float(get_param('~axis_for_tilt', 0)) # if tilt calibrates first, this should be 0, else 1
 
         self.connect_on_startup   = get_param('~connect_on_startup', False)
-        #self.calibrate_on_startup = get_param('~calibrate_on_startup', False)
-        #self.engage_on_startup    = get_param('~engage_on_startup', False)
+        self.calibrate_on_startup = get_param('~calibrate_on_startup', False)
+        self.engage_on_startup    = get_param('~engage_on_startup', False)
         
         self.has_preroll     = get_param('~use_preroll', False)
                 
@@ -109,6 +109,8 @@ class ODriveNode(object):
         self.status_pub.publish(self.status)
         
         self.command_queue = Queue.Queue(maxsize=1)
+
+
 
         # subscribed to simple radian angle message (x axis is tilt, z axis is yaw)
         self.gimbal_angle_subscribe = rospy.Subscriber("/cmd_gimbal_angle", Vector3, self.cmd_gimble_angle_callback, queue_size=2)
@@ -162,7 +164,7 @@ class ODriveNode(object):
         # Main control, handle startup and error handling
         # while a ROS timer will handle the high-rate (~50Hz) comms + odometry calcs
         main_rate = rospy.Rate(1) # hz
-        # Start timer to run high-rate comms
+        # Start timer to run Truehigh-rate comms
         self.fast_timer = rospy.Timer(rospy.Duration(1/float(self.odom_calc_hz)), self.fast_timer)
         
         self.fast_timer_comms_active = False
@@ -225,12 +227,12 @@ class ODriveNode(object):
         self.vel_yaw = 0
         self.vel_tilt = 0
         self.current_tilt = 0
-	self.current_yaw = 0
-	self.temp_v_yaw = 0
-	self.temp_v_tilt = 0
-	self.motor_state_yaw = "not connected" # undefined
-	self.motor_state_tilt = "not connected"
-	self.bus_voltage = 0
+        self.current_yaw = 0
+        self.temp_v_yaw = 0
+        self.temp_v_tilt = 0
+        self.motor_state_yaw = "not connected" # undefined
+        self.motor_state_tilt = "not connected"
+        self.bus_voltage = 0
         
         # Handle reading from Odrive and sending odometry
         if self.fast_timer_comms_active:
@@ -255,9 +257,9 @@ class ODriveNode(object):
                     self.new_pos_yaw = self.driver.yaw_pos()        # units: encoder counts
                     self.new_pos_tilt = -self.driver.tilt_pos()      # sign!
                     
-                    # for temperatures
-                    self.temp_v_yaw = self.driver.yaw_temperature()
-                    self.temp_v_tilt = self.driver.tilt_temperature()
+                    # 11/04/22 REL removed for 0.5.5 fw
+                    # self.temp_v_yaw = self.driver.yaw_temperature()
+                    # self.temp_v_tilt = self.driver.tilt_temperature()
                     # for current
                     self.current_yaw = self.driver.yaw_current()
                     self.current_tilt = self.driver.tilt_current()
@@ -283,32 +285,32 @@ class ODriveNode(object):
             self.pub_joint_angles(time_now)
         if self.publish_diagnostics:
             self.diagnostic_updater.update()
-	if self.publish_raw_odom:
+        if self.publish_raw_odom:
             self.raw_odom_publisher_encoder_yaw.publish(self.new_pos_yaw)
             self.raw_odom_publisher_encoder_tilt.publish(self.new_pos_tilt)
             self.raw_odom_publisher_vel_yaw.publish(self.vel_yaw)
             self.raw_odom_publisher_vel_tilt.publish(self.vel_tilt)
 
-	"""
-        try:
-            # check and stop motor if no pos command has been received in > 1s
-            #if self.fast_timer_comms_active:
-            if self.driver:
-                if (time_now - self.last_cmd_gimble_angle_time).to_sec() > 0.5 and self.last_pos > 0:
-                    self.driver.drive(0,0)
-                    self.last_pos = 0
-                    self.last_cmd_gimble_angle_time = time_now
-                # release motor after 10s stopped
-                if (time_now - self.last_cmd_gimble_angle_time).to_sec() > 10.0 and self.driver.engaged():
-                    self.driver.release() # and release            
-        except (ChannelBrokenException, ChannelDamagedException):
-            rospy.logerr("ODrive USB connection failure in cmd_gimble_angle timeout." + traceback.format_exc(1))
-            self.fast_timer_comms_active = False
-            self.driver = None
-        except:
-            rospy.logerr("cmd_gimble_angle timeout unknown failure:" + traceback.format_exc())
-            self.fast_timer_comms_active = False
-	"""
+            """
+                try:
+                    # check and stop motor if no pos command has been received in > 1s
+                    #if self.fast_timer_comms_active:
+                    if self.driver:
+                        if (time_now - self.last_cmd_gimble_angle_time).to_sec() > 0.5 and self.last_pos > 0:
+                            self.driver.drive(0,0)
+                            self.last_pos = 0
+                            self.last_cmd_gimble_angle_time = time_now
+                        # release motor after 10s stopped
+                        if (time_now - self.last_cmd_gimble_angle_time).to_sec() > 10.0 and self.driver.engaged():
+                            self.driver.release() # and release            
+                except (ChannelBrokenException, ChannelDamagedException):
+                    rospy.logerr("ODrive USB connection failure in cmd_gimble_angle timeout." + traceback.format_exc(1))
+                    self.fast_timer_comms_active = False
+                    self.driver = None
+                except:
+                    rospy.logerr("cmd_gimble_angle timeout unknown failure:" + traceback.format_exc())
+                    self.fast_timer_comms_active = False
+            """
         
         # handle sending drive commands.
         # from here, any errors return to get out
@@ -319,7 +321,12 @@ class ODriveNode(object):
                     rospy.logwarn_throttle(5.0, "ODrive has not been prerolled, ignoring drive command.")
                     motor_command = self.command_queue.get_nowait()
                     return
-            except:
+            except:      
+                self.raw_odom_publisher_encoder_yaw.publish(self.new_pos_yaw)
+                self.raw_odom_publisher_encoder_tilt.publish(self.new_pos_tilt)
+                self.raw_odom_publisher_vel_yaw.publish(self.vel_yaw)
+                self.raw_odom_publisher_vel_tilt.publish(self.vel_tilt)
+
                 rospy.logerr("Fast timer exception on preroll." + traceback.format_exc())
                 self.fast_timer_comms_active = False                
             try:
@@ -440,42 +447,43 @@ class ODriveNode(object):
     
     # Helpers and callbacks
     
-    def convert(self, yaw_radians, tilt_radians):
+    # def convert(self, yaw_radians, tilt_radians):
 
-        # convert message radian values into CPR values applicable to Odrive
+    #     # convert message radian values into CPR values applicable to Odrive
 
-        yaw_angle_val  = int((yaw_radians/(2*math.pi)) * self.encoder_cpr)
-        tilt_angle_val = int((tilt_radians/(2*math.pi)) * self.encoder_cpr)
+    #     yaw_angle_val  = int((yaw_radians/(2*math.pi)) * self.encoder_cpr)
+    #     tilt_angle_val = int((tilt_radians/(2*math.pi)) * self.encoder_cpr)
     
-        return yaw_angle_val, tilt_angle_val
+    #     return yaw_angle_val, tilt_angle_val
 
     def cmd_gimble_angle_callback(self, msg):
-        #rospy.loginfo("Received a /cmd_gimbal_angle message!")
-        #rospy.loginfo("Yaw Axis: [%f]"%(msg.z))
-        #rospy.loginfo("Tilt Axis: [%f]"%(msg.x))
+        rospy.loginfo("Yaw Axis: [%f]"%(msg.z))
+        rospy.loginfo("Tilt Axis: [%f]"%(msg.x))
 
-        yaw_angle_val, tilt_angle_val = self.convert(msg.z, msg.x)
-	yaw_angle_val *= -1
+        yaw_angle_val, tilt_angle_val =msg.z, msg.x
+        yaw_angle_val *= -1
         #rospy.loginfo("Sending encoder set point!")
         #rospy.loginfo("Yaw Axis: [%f]"%(yaw_angle_val))
         #rospy.loginfo("Tilt Axis: [%f]"%(tilt_angle_val))
         
         #Insure motors never exceed half rotation
-        if (yaw_angle_val > 400):
-            yaw_angle_val = 400
+        if (yaw_angle_val > 1):
+            yaw_angle_val = 1
             rospy.logwarn("Yaw Axis received cmd > 400 of [%f]"%(msg.z))
-        elif (yaw_angle_val < -400):
-            yaw_angle_val = -400
+        elif (yaw_angle_val < -1):
+            yaw_angle_val = -1
             rospy.logwarn("Yaw Axis received cmd < -400 of [%f]"%(msg.z))
-        if (tilt_angle_val > 300):
-            tilt_angle_val = 300
+        if (tilt_angle_val > 1):
+            tilt_angle_val = 1
             rospy.logwarn("Tilt Axis received cmd > 300 of [%f]"%(msg.x))
-        elif(tilt_angle_val < -300):
-            tilt_angle_val = -300
+        elif(tilt_angle_val < -1):
+            tilt_angle_val = -1
             rospy.logwarn("Tilt Axis received cmd < -300 of [%f]"%(msg.x))
         try:
-	    self.yaw_angle_skip_queue_val = yaw_angle_val
-	    self.tilt_angle_skip_queue_val = tilt_angle_val
+            self.yaw_angle_skip_queue_val = yaw_angle_val
+            self.tilt_angle_skip_queue_val = tilt_angle_val
+
+            # rospy.logwarn("Sent driving command");
             drive_command = ('drive', (yaw_angle_val, tilt_angle_val))
             self.command_queue.put_nowait(drive_command)
         except Queue.Full:
@@ -489,8 +497,8 @@ class ODriveNode(object):
         stat.add("Motor state TILT", self.motor_state_tilt)
         stat.add("FET temp YAW (C)", round(self.temp_v_yaw,1))
         stat.add("FET temp TILT (C)", round(self.temp_v_tilt,1))
-        stat.add("Motor temp YAW (C)", "unimplemented")
-        stat.add("Motor temp TILT (C)", "unimplemented")
+        # stat.add("Motor temp YAW (C)", "unimplemented")
+        # stat.add("Motor temp TILT (C)", "unimplemented")
         stat.add("Motor current YAW (A)", round(self.current_yaw,1))
         stat.add("Motor current TILT (A)", round(self.current_tilt,1))
         stat.add("Voltage (V)", round(self.bus_voltage,2))

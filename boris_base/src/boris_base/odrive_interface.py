@@ -240,7 +240,9 @@ class ODriveInterfaceAPI(object):
 
         #self.logger.debug("Setting drive mode.")
         for axis in self.axes:
-            axis.controller.vel_setpoint = 0
+
+            #11/04/22 REL as of 0.5.5 this is a write only property and default value is 0. no value in changing
+            # axis.controller.vel_setpoint = 0
             axis.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
             axis.controller.config.control_mode = CTRL_MODE_VELOCITY_CONTROL
         
@@ -263,8 +265,8 @@ class ODriveInterfaceAPI(object):
             self.logger.error("Not connected.")
             return
         #try:
-        self.left_axis.controller.vel_setpoint = -left_motor_val
-        self.right_axis.controller.vel_setpoint = right_motor_val
+        self.left_axis.controller.input_vel = -left_motor_val
+        self.right_axis.controller.input_vel = right_motor_val
         #except (fibre.protocol.ChannelBrokenException, AttributeError) as e:
         #    raise ODriveFailure(str(e))
         
@@ -300,12 +302,12 @@ class ODriveInterfaceAPI(object):
     def left_pos(self):           return -1 * self.left_axis.encoder.pos_cpr        if self.left_axis  else 0  # units: encoder counts
     def right_pos(self):          return -1 * self.right_axis.encoder.pos_cpr       if self.right_axis else 0   # sign!
     
-    # TODO check these match the right motors, but it doesn't matter for now
-    def left_temperature(self):   return self.left_axis.motor.get_inverter_temp()  if self.left_axis  else 0.
-    def right_temperature(self):  return self.right_axis.motor.get_inverter_temp() if self.right_axis else 0.
+    # 11/04/22 REL this does not appear to be implemented in 0.5.5 of ODrive useless
+    # def left_temperature(self):   return self.left_axis.motor.get_inverter_temp()  if self.left_axis  else 0.
+    # def right_temperature(self):  return self.right_axis.motor.get_inverter_temp() if self.right_axis else 0.
     
-    def left_current(self):       return self.left_axis.motor.current_control.Ibus  if self.left_axis and self.left_axis.current_state > 1 else 0.
-    def right_current(self):      return self.right_axis.motor.current_control.Ibus if self.right_axis and self.right_axis.current_state > 1 else 0.
+    def left_current(self):       return self.left_axis.motor.current_control.I_bus  if self.left_axis and self.left_axis.current_state > 1 else 0.
+    def right_current(self):      return self.right_axis.motor.current_control.I_bus if self.right_axis and self.right_axis.current_state > 1 else 0.
     
     # from axis.hpp: https://github.com/madcowswe/ODrive/blob/767a2762f9b294b687d761029ef39e742bdf4539/Firmware/MotorControl/axis.hpp#L26
     MOTOR_STATES = [

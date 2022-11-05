@@ -308,8 +308,8 @@ class ODriveInterfaceAPI(object):
     
 
     #11/04/22 REL IBUS is the original parameter, but was removed as of 0.5.5
-    def yaw_current(self):       return self.yaw_axis.motor.current_control.I_measured_report_filter_k if self.yaw_axis and self.yaw_axis.current_state > 1 else 0.
-    def tilt_current(self):      return self.tilt_axis.motor.current_control.I_measured_report_filter_k if self.tilt_axis and self.tilt_axis.current_state > 1 else 0.
+    def yaw_current(self):       return self.yaw_axis.motor.current_control.I_bus if self.yaw_axis and self.yaw_axis.current_state > 1 else 0.
+    def tilt_current(self):      return self.tilt_axis.motor.current_control.I_bus if self.tilt_axis and self.tilt_axis.current_state > 1 else 0.
     
     # from axis.hpp: https://github.com/madcowswe/ODrive/blob/767a2762f9b294b687d761029ef39e742bdf4539/Firmware/MotorControl/axis.hpp#L26
     MOTOR_STATES = [

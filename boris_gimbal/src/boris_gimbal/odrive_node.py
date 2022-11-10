@@ -469,16 +469,16 @@ class ODriveNode(object):
         #Insure motors never exceed half rotation
         if (yaw_angle_val > 1):
             yaw_angle_val = 1
-            rospy.logwarn("Yaw Axis received cmd > 400 of [%f]"%(msg.z))
+            rospy.logwarn("Yaw Axis received cmd > 1 of [%f]"%(msg.z))
         elif (yaw_angle_val < -1):
             yaw_angle_val = -1
-            rospy.logwarn("Yaw Axis received cmd < -400 of [%f]"%(msg.z))
+            rospy.logwarn("Yaw Axis received cmd < -1 of [%f]"%(msg.z))
         if (tilt_angle_val > 1):
             tilt_angle_val = 1
-            rospy.logwarn("Tilt Axis received cmd > 300 of [%f]"%(msg.x))
+            rospy.logwarn("Tilt Axis received cmd > 1 of [%f]"%(msg.x))
         elif(tilt_angle_val < -1):
             tilt_angle_val = -1
-            rospy.logwarn("Tilt Axis received cmd < -300 of [%f]"%(msg.x))
+            rospy.logwarn("Tilt Axis received cmd < -1 of [%f]"%(msg.x))
         try:
             self.yaw_angle_skip_queue_val = yaw_angle_val
             self.tilt_angle_skip_queue_val = tilt_angle_val

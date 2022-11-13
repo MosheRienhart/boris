@@ -263,9 +263,11 @@ class ODriveInterfaceAPI(object):
             self.logger.error("Not connected.")
             return
         try:
+         self.logger.info("Tilt sent %f" %tilt_motor_val)
+         self.logger.info("Yaw sent %f" %yaw_motor_val)
 
          self.yaw_axis.controller.input_pos = yaw_motor_val
-         self.tilt_axis.controller.input_pos = -tilt_motor_val
+         self.tilt_axis.controller.input_pos = tilt_motor_val
         except (fibre.protocol.ChannelBrokenException, AttributeError) as e:
             raise ODriveFailure(str(e))
         

@@ -51,7 +51,7 @@ def get_param(name, default):
 
 class ODriveNode(object):
     #To adjust encoder to horizontal position for zero radians
-    tilt_encoder_index_offset = -500
+    tilt_encoder_index_offset =0
     yaw_encoder_index_offset = 0 
     last_pos = 0.0
     driver = None
@@ -473,16 +473,19 @@ class ODriveNode(object):
         elif (yaw_angle_val < -1):
             yaw_angle_val = -1
             rospy.logwarn("Yaw Axis received cmd < -1 of [%f]"%(msg.z))
-        if (tilt_angle_val > 1):
-            tilt_angle_val = 1
-            rospy.logwarn("Tilt Axis received cmd > 1 of [%f]"%(msg.x))
-        elif(tilt_angle_val < -1):
-            tilt_angle_val = -1
-            rospy.logwarn("Tilt Axis received cmd < -1 of [%f]"%(msg.x))
+        if (tilt_angle_val > 0.5):
+            tilt_angle_val = 0.5
+            rospy.logwarn("Tilt Axis received cmd > 0.5 of [%f]"%(msg.x))
+        elif(tilt_angle_val < -0.5):
+            tilt_angle_val = -0.5
+            rospy.logwarn("Tilt Axis received cmd < -0.5 of [%f]"%(msg.x))
         try:
             self.yaw_angle_skip_queue_val = yaw_angle_val
-            self.tilt_angle_skip_queue_val = tilt_angle_val
+            self.tilt_angle_skip_queue_val = -tilt_angle_val
 
+
+            # rospy.loginfo("Yaw Axis: [%f]"%(yaw_angle_val))
+            # rospy.loginfo("Tilt Axis: [%f]"%(tilt_angle_val))
             # rospy.logwarn("Sent driving command");
             drive_command = ('drive', (yaw_angle_val, tilt_angle_val))
             self.command_queue.put_nowait(drive_command)

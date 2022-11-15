@@ -390,6 +390,7 @@ class ODriveNode(object):
         
         self.status = "connected"
         self.status_pub.publish(self.status)
+
         return (True, "ODrive connected successfully")
     
     def disconnect_driver(self, request):
@@ -457,8 +458,8 @@ class ODriveNode(object):
     #     return yaw_angle_val, tilt_angle_val
 
     def cmd_gimble_angle_callback(self, msg):
-        rospy.loginfo("Yaw Axis: [%f]"%(msg.z))
-        rospy.loginfo("Tilt Axis: [%f]"%(msg.x))
+        # rospy.loginfo("Yaw Axis: [%f]"%(msg.z))
+        # rospy.loginfo("Tilt Axis: [%f]"%(msg.x))
 
         yaw_angle_val, tilt_angle_val =msg.z, msg.x
         yaw_angle_val *= -1

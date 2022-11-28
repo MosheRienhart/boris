@@ -1,0 +1,13 @@
+<launch>
+    <include file="$(find yolo_depth_locator)/launch/realsensecustom.launch" />
+
+    <!-- <include file="$(find darknet_ros)/launch/darknet_ros.launch" /> -->
+
+
+    <node
+    pkg="yolo_depth_locator"
+    type="yolo_depth_locator_cpp"
+    name="screet"
+    output="screen"
+    />
+</launch>

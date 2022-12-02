@@ -109,10 +109,10 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
- INCLUDE_DIRS include
+#  INCLUDE_DIRS include
  LIBRARIES yolo_depth_locator
  CATKIN_DEPENDS cv_bridge darknet_ros image_transport roscpp rospy sensor_msgs std_msgs
- DEPENDS system_lib
+#  DEPENDS system_lib
 )
 
 ###########

@@ -26,10 +26,12 @@ geometry_msgs::Point px2mm(geometry_msgs::Point& centerPixel)
   cy = 248.609130859375;
 
   
-  outPt.x = (centerPixel.x*-cx)/fx*centerPixel.z;
-  outPt.y = (centerPixel.y*-cy)/fy*centerPixel.z;
+  outPt.x = (centerPixel.x-cx)/fx*centerPixel.z;
+  outPt.y = (centerPixel.y-cy)/fy*centerPixel.z;
   outPt.z = centerPixel.z;
 
+
+  return outPt;
 }
 
 
@@ -42,7 +44,7 @@ void callback(const sensor_msgs::ImageConstPtr& depthImg, const darknet_ros_msgs
         double dlikelihood = box.probability;
         std::string dclass = box.Class;
         // if(dlikelihood >= 0.9 && dclass.compare("Trash") == 0)
-        if(dlikelihood >= 0.7)
+        if(dlikelihood >= 0.4)
         {
 
           if ((i == 0))

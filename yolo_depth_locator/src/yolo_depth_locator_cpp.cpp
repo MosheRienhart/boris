@@ -27,7 +27,6 @@ geometry_msgs::Point px2mm(geometry_msgs::Point& centerPixel)
   fy = 615.692138671875;
   cy = 248.609130859375;
 
-  tf::TransformBroadcaster broadcas
   outPt.x = (centerPixel.x-cx)/fx*centerPixel.z;
   outPt.y = (centerPixel.y-cy)/fy*centerPixel.z;
   outPt.z = centerPixel.z;

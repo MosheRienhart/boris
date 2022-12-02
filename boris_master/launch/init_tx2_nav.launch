@@ -1,0 +1,23 @@
+<!-- Initialize BORIS: Launch All Phases Simultaneously -->
+<launch>
+   <!-- Start motor control of base (velocity control of left and right wheels)-->
+  <include file="$(find boris_base)/launch/base.launch"/>
+
+   <!-- Start motor control of realsense camera gimbal (position control of yaw and tilt gimbal motors)-->
+  <include file="$(find boris_gimbal)/launch/gimbal.launch"/>
+
+  <!-- Load robot description and tf server -->
+  <include file="$(find boris_description)/launch/description.launch"/>
+
+  <!-- Start dynamic navigation planning and execution using only odometry frame -->
+  <include file="$(find darknet_ros)/launch/darknet_ros.launch"/>
+
+  <!-- Start dynamic navigation planning and execution using only odometry frame -->
+  <include file="$(find boris_navigation)/launch/nav.launch"/>
+
+
+  <include file="$(find yolo_depth_locator)/launch/depth.launch"/>
+
+
+  <
+</launch>

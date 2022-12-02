@@ -42,7 +42,7 @@ class ODriveInterfaceSimulator(object):
         if self.connected:
             self.logger.info("Already connected. Simulating disc/reconnect.")
             
-        self.encoder_cpr = 4096
+        self.encoder_cpr = 90
         self.logger.info("Connected to simulated ODrive.")
         return True
         

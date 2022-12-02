@@ -61,7 +61,7 @@ class ODriveNode(object):
     encoder_counts_per_rev = None
     m_s_to_value = 1.0
     axis_for_right = 1
-    encoder_cpr = 2000
+    encoder_cpr = 90
     
     # Startup parameters
     connect_on_startup = True
@@ -78,8 +78,8 @@ class ODriveNode(object):
         self.publish_temperatures = get_param('publish_temperatures', True)
         
         self.axis_for_right = float(get_param('~axis_for_right', 0)) # if right calibrates first, this should be 0, else 1
-        self.wheel_track = float(get_param('~wheel_track', 0.285)) # m, distance between wheel centres
-        self.tyre_circumference = float(get_param('~tyre_circumference', 0.341)) # used to translate velocity commands in m/s into motor rpm
+        self.wheel_track = float(get_param('~wheel_track', 0.6719)) # m, distance between wheel centres
+        self.tyre_circumference = float(get_param('~tyre_circumference', 0.518676)) # used to translate velocity commands in m/s into motor rpm
         
         self.connect_on_startup   = get_param('~connect_on_startup', False)
         #self.calibrate_on_startup = get_param('~calibrate_on_startup', False)
@@ -305,9 +305,9 @@ class ODriveNode(object):
                     self.new_pos_l = self.driver.left_pos()        # units: encoder counts
                     self.new_pos_r = -self.driver.right_pos()      # sign!
                     
-                    # for temperatures
-                    self.temp_v_l = self.driver.left_temperature()
-                    self.temp_v_r = self.driver.right_temperature()
+                    # 11/04/22 REL removed for 0.5.5 fw
+                    # self.temp_v_l = self.driver.left_temperature()
+                    # self.temp_v_r = self.driver.right_temperature()
                     # for current
                     self.current_l = self.driver.left_current()
                     self.current_r = self.driver.right_current()
@@ -384,8 +384,9 @@ class ODriveNode(object):
                     if not self.driver.engaged():
                         self.driver.engage()
                         self.status = "engaged"
-                        
                     left_linear_val, right_linear_val = motor_command[1]
+                    rospy.logerr( left_linear_val)
+
                     self.driver.drive(left_linear_val, right_linear_val)
                     self.last_speed = max(abs(left_linear_val), abs(right_linear_val))
                     self.last_cmd_vel_time = time_now
@@ -433,8 +434,8 @@ class ODriveNode(object):
         self.m_s_to_value = self.driver.encoder_cpr/self.tyre_circumference
         
         if self.publish_odom:
-            self.old_pos_l = self.driver.left_axis.encoder.pos_cpr
-            self.old_pos_r = self.driver.right_axis.encoder.pos_cpr
+            self.old_pos_l = self.driver.left_axis.encoder.pos_cpr_counts
+            self.old_pos_r = self.driver.right_axis.encoder.pos_cpr_counts
         
         self.fast_timer_comms_active = True
         
@@ -516,10 +517,11 @@ class ODriveNode(object):
     # Helpers and callbacks
     
     def convert(self, forward, ccw):
+        rospy.loginfo("Recieved %f and %f",forward,ccw)
         angular_to_linear = ccw * (self.wheel_track/2.0) 
         left_linear_val  = int((forward - angular_to_linear) * self.m_s_to_value)
         right_linear_val = int((forward + angular_to_linear) * self.m_s_to_value)
-    
+        rospy.loginfo("Output : %f %f ",self.tyre_circumference, self.encoder_cpr)
         return left_linear_val, right_linear_val
 
     def cmd_vel_callback(self, msg):
@@ -562,8 +564,8 @@ class ODriveNode(object):
         stat.add("Motor state R", self.motor_state_r)
         stat.add("FET temp L (C)", round(self.temp_v_l,1))
         stat.add("FET temp R (C)", round(self.temp_v_r,1))
-        stat.add("Motor temp L (C)", "unimplemented")
-        stat.add("Motor temp R (C)", "unimplemented")
+        # stat.add("Motor temp L (C)", "unimplemented")
+        # stat.add("Motor temp R (C)", "unimplemented")
         stat.add("Motor current L (A)", round(self.current_l,1))
         stat.add("Motor current R (A)", round(self.current_r,1))
         stat.add("Voltage (V)", round(self.bus_voltage,2))
@@ -706,7 +708,7 @@ class ODriveNode(object):
         #rospy.loginfo("vel_l: % 2.2f  vel_r: % 2.2f  vel_l: % 2.2f  vel_r: % 2.2f  x: % 2.2f  th: % 2.2f  pos_l: % 5.1f pos_r: % 5.1f " % (
         #                vel_l, -vel_r,
         #                vel_l/encoder_cpr, vel_r/encoder_cpr, self.odom_msg.twist.twist.linear.x, self.odom_msg.twist.twist.angular.z,
-        #                self.driver.left_axis.encoder.pos_cpr, self.driver.right_axis.encoder.pos_cpr))
+        #                self.driver.left_axis.encoder.pos_cpr_counts, self.driver.right_axis.encoder.pos_cpr_counts))
         
         # Position
         delta_pos_l = self.new_pos_l - self.old_pos_l
